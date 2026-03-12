@@ -25,5 +25,11 @@ concat outputs and use classification head
 
 ## Limitations and Ethical Considerations
 
+## Figures and Tables
+ - dev results table for mdoel B
+ - dev results table for model C
+ - Model B architecture 
+ - Model C architecture 
+
 
 
