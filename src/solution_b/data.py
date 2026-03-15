@@ -8,8 +8,8 @@ from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader, Dataset
 
 
-def load_glove(name: str = "glove-wiki-gigaword-100"):
-    """Function for loading a pretrained glove from gensim"""
+def load_embeddings(name: str = "fasttext-wiki-news-subwords-300"):
+    """Function for loading pretrained embeddings from gensim"""
     return api.load(name)
 
 
@@ -21,9 +21,9 @@ def preprocess(text: str) -> list:
     return text.split()
 
 
-def tokens_to_vectors(tokens: list, glove, dim: int = 100) -> np.ndarray:
-    """Converts the tokens into vector representations using a glove embedding"""
-    vecs = [glove[t] if t in glove else np.zeros(dim) for t in tokens]
+def tokens_to_vectors(tokens: list, embeddings, dim: int = 300) -> np.ndarray:
+    """Converts the tokens into vector representations using pretrained embeddings"""
+    vecs = [embeddings[t] if t in embeddings else np.zeros(dim) for t in tokens]
     return np.array(vecs) if vecs else np.zeros((1, dim))
 
 

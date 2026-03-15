@@ -7,7 +7,7 @@ import torch
 from sklearn.metrics import classification_report, f1_score
 from torch.utils.data import DataLoader
 
-from src.solution_b.data import ClaimEvidenceDataset, collate_fn, load_and_preprocess, load_glove
+from src.solution_b.data import ClaimEvidenceDataset, collate_fn, load_and_preprocess, load_embeddings
 from src.solution_b.models import EnsembleModel, build_model
 
 
@@ -91,7 +91,7 @@ def parse_args():
         help="Optional ensemble weights (must match --checkpoints count)."
     )
     parser.add_argument("--data",      default="training_data/dev.csv")
-    parser.add_argument("--glove",     default="glove-wiki-gigaword-100")
+    parser.add_argument("--embeddings", default="fasttext-wiki-news-subwords-300")
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--sweep",     action="store_true",
                         help="Print top-10 threshold sweep results.")
@@ -103,13 +103,13 @@ def parse_args():
 def main():
     args = parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    dim = int(args.glove.split("-")[-1])
+    dim = int(args.embeddings.split("-")[-1])
 
-    print("Loading GloVe")
-    glove = load_glove(args.glove)
+    print("Loading embeddings")
+    embeddings = load_embeddings(args.embeddings)
 
     print("Preprocessing data.")
-    df = load_and_preprocess(args.data, glove, dim)
+    df = load_and_preprocess(args.data, embeddings, dim)
     labels = df["label"].values if "label" in df.columns else None
 
     ds = ClaimEvidenceDataset(

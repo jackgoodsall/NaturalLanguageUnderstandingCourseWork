@@ -6,7 +6,7 @@ import os
 import torch
 import torch.nn as nn
 
-from src.solution_b.data import get_dataloaders, load_and_preprocess, load_glove
+from src.solution_b.data import get_dataloaders, load_and_preprocess, load_embeddings
 from src.solution_b.models import build_model
 
 ## Core training loops
@@ -123,7 +123,7 @@ def parse_args():
     parser.add_argument("--train",       default="training_data/train.csv")
     parser.add_argument("--dev",         default="training_data/dev.csv")
     parser.add_argument("--output-dir",  default="outputs")
-    parser.add_argument("--glove",       default="glove-wiki-gigaword-100")
+    parser.add_argument("--embeddings",  default="fasttext-wiki-news-subwords-300")
     # model
     parser.add_argument("--hidden-size", type=int,   default=128)
     parser.add_argument("--num-layers",  type=int,   default=3)
@@ -142,13 +142,13 @@ def main():
     args = parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
 
-    print("Loading GloVe")
-    glove = load_glove(args.glove)
-    dim = int(args.glove.split("-")[-1])
+    print("Loading embeddings")
+    embeddings = load_embeddings(args.embeddings)
+    dim = int(args.embeddings.split("-")[-1])
 
     print("Preprocessing data")
-    train_df = load_and_preprocess(args.train, glove, dim)
-    dev_df = load_and_preprocess(args.dev, glove, dim)
+    train_df = load_and_preprocess(args.train, embeddings, dim)
+    dev_df = load_and_preprocess(args.dev, embeddings, dim)
     train_dl, dev_dl = get_dataloaders(train_df, dev_df, args.batch_size)
 
     config = {
@@ -164,7 +164,8 @@ def main():
 
     n_pos = (train_df["label"] == 1).sum()
     n_neg = (train_df["label"] == 0).sum()
-    pos_weight = torch.tensor([n_neg / n_pos], dtype=torch.float32)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    pos_weight = torch.tensor([n_neg / n_pos], dtype=torch.float32, device=device)
     ### Used weight in the loss to deal with the class imbalance.
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     optimiser = torch.optim.AdamW(model.parameters(), lr=args.lr)
