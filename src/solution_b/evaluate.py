@@ -1,3 +1,14 @@
+"""
+evaluate.py — Evaluation and inference for Solution B.
+
+Handles:
+  - Loading trained checkpoints (single model or ensemble)
+  - Computing predicted probabilities from a model
+  - Calculating accuracy, F1 (binary & macro), and classification reports
+  - Threshold sweep to find the optimal decision boundary
+  - CLI for running evaluation from the command line
+"""
+
 import argparse
 import json
 import os
@@ -11,8 +22,21 @@ from src.solution_b.data import ClaimEvidenceDataset, collate_fn, load_and_prepr
 from src.solution_b.models import EnsembleModel, build_model
 
 
+
 @torch.no_grad()
 def get_probs(model: torch.nn.Module, dataloader, device: str) -> np.ndarray:
+    """Run inference and return predicted probabilities for all samples.
+
+    Applies sigmoid to the raw logits to convert them to [0, 1] probabilities.
+
+    Args:
+        model:      trained model (single or ensemble).
+        dataloader: DataLoader over the evaluation dataset.
+        device:     'cuda' or 'cpu'.
+
+    Returns:
+        1-D numpy array of probabilities, one per sample.
+    """
     model.eval()
     all_probs = []
     for X, _ in dataloader:
@@ -23,6 +47,16 @@ def get_probs(model: torch.nn.Module, dataloader, device: str) -> np.ndarray:
 
 
 def evaluate(probs: np.ndarray, labels: np.ndarray, threshold: float = 0.5) -> dict:
+    """Compute classification metrics at a given probability threshold.
+
+    Args:
+        probs:     predicted probabilities (output of get_probs).
+        labels:    ground-truth binary labels (0 or 1).
+        threshold: decision boundary — predictions >= threshold are positive.
+
+    Returns:
+        Dict with keys: threshold, accuracy, f1_binary, f1_macro, report.
+    """
     preds = (probs >= threshold).astype(int)
     return {
         "threshold": threshold,
@@ -40,7 +74,22 @@ def threshold_sweep(
     stop: float = 1.0,
     step: float = 0.05,
 ) -> list:
-    """Returns results sorted by F1 descending."""
+    """Try many thresholds and return results sorted by F1 (descending).
+
+    Useful for finding the optimal decision boundary, which may differ from
+    the default 0.5 — especially when class distributions are imbalanced.
+
+    Args:
+        probs:  predicted probabilities.
+        labels: ground-truth labels.
+        start:  lowest threshold to try.
+        stop:   upper bound (exclusive).
+        step:   increment between thresholds.
+
+    Returns:
+        List of dicts with keys: threshold, f1_binary, accuracy.
+        Sorted by f1_binary descending (best threshold first).
+    """
     results = []
     for t in np.arange(start, stop, step):
         preds = (probs >= t).astype(int)
@@ -57,19 +106,41 @@ def threshold_sweep(
 
 
 def load_checkpoint(checkpoint_path: str, meta_path: str = None):
-    """Load a model from a checkpoint. Auto-detects run_meta.json if not given."""
+    """Load a single trained model from a checkpoint file.
+
+    Automatically looks for a 'run_meta.json' in the same directory as the
+    checkpoint to reconstruct the model architecture from saved config.
+
+    Args:
+        checkpoint_path: path to 'best_model.pt'.
+        meta_path:       path to 'run_meta.json' (auto-detected if None).
+
+    Returns:
+        (model, meta) tuple — the loaded model and its metadata dict.
+    """
     ckpt = torch.load(checkpoint_path, map_location="cpu")
+    # Auto-detect metadata file alongside the checkpoint
     if meta_path is None:
         meta_path = os.path.join(os.path.dirname(checkpoint_path), "run_meta.json")
     with open(meta_path) as f:
         meta = json.load(f)
+    # Rebuild the model architecture from the saved config, then load weights
     model = build_model(meta["config"])
     model.load_state_dict(ckpt["model_state"])
     return model, meta
 
 
 def load_ensemble(checkpoint_paths: list, meta_paths: list = None, weights: list = None):
-    """Load multiple checkpoints and wrap them in an EnsembleModel."""
+    """Load multiple checkpoints and wrap them in an EnsembleModel.
+
+    Args:
+        checkpoint_paths: list of paths to 'best_model.pt' files.
+        meta_paths:       corresponding 'run_meta.json' paths (auto-detected if None).
+        weights:          optional ensemble weights (defaults to uniform).
+
+    Returns:
+        An EnsembleModel that averages predictions from all loaded models.
+    """
     if meta_paths is None:
         meta_paths = [None] * len(checkpoint_paths)
     models = [load_checkpoint(cp, mp)[0] for cp, mp in zip(checkpoint_paths, meta_paths)]
@@ -77,6 +148,7 @@ def load_ensemble(checkpoint_paths: list, meta_paths: list = None, weights: list
 
 
 def parse_args():
+    """Parse command-line arguments for evaluation."""
     parser = argparse.ArgumentParser(description="Evaluate a trained model")
     parser.add_argument(
         "--checkpoints", nargs="+", required=True,
@@ -103,8 +175,10 @@ def parse_args():
 def main():
     args = parse_args()
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    # Infer embedding dimension from model name
     dim = int(args.embeddings.split("-")[-1])
 
+    # --- Load embeddings and preprocess the evaluation data ---
     print("Loading embeddings")
     embeddings = load_embeddings(args.embeddings)
 
@@ -112,24 +186,31 @@ def main():
     df = load_and_preprocess(args.data, embeddings, dim)
     labels = df["label"].values if "label" in df.columns else None
 
+    # Build a DataLoader for the evaluation set
     ds = ClaimEvidenceDataset(
         df["claim_vecs"], df["evidence_vecs"],
         df["label"] if labels is not None else None,
     )
     dl = DataLoader(ds, batch_size=64, shuffle=False, collate_fn=collate_fn)
 
+    # --- Load model(s) ---
     metas = args.metas or [None] * len(args.checkpoints)
 
     if len(args.checkpoints) == 1:
+        # Single model evaluation
         model, _ = load_checkpoint(args.checkpoints[0], metas[0])
     else:
+        # Ensemble: load multiple models and average their predictions
         print(f"Ensembling {len(args.checkpoints)} models...")
         model = load_ensemble(args.checkpoints, metas, weights=args.weights)
 
     model.to(device)
+
+    # --- Get predictions ---
     probs = get_probs(model, dl, device)
 
     if labels is not None:
+        # --- Labelled data: compute and print metrics ---
         results = evaluate(probs, labels, args.threshold)
         print(f"\nThreshold : {results['threshold']}")
         print(f"Accuracy  : {results['accuracy']:.4f}")
@@ -137,12 +218,14 @@ def main():
         print(f"F1 macro  : {results['f1_macro']:.4f}")
         print(results["report"])
 
+        # Optional: sweep thresholds to find the best decision boundary
         if args.sweep:
             sweep = threshold_sweep(probs, labels)
             print("Threshold sweep (top 10):")
             for r in sweep[:10]:
                 print(f"  t={r['threshold']:.2f}  F1={r['f1_binary']}  acc={r['accuracy']}")
 
+        # Optional: save results to JSON
         if args.output:
             results_out = {k: v for k, v in results.items() if k != "report"}
             if args.sweep:
@@ -151,7 +234,7 @@ def main():
                 json.dump(results_out, f, indent=2)
             print(f"\nResults saved to {args.output}")
     else:
-        # No labels — just dump predictions
+        # --- Unlabelled data: output raw predictions ---
         print("No labels found — writing raw predictions.")
         df["prob"] = probs
         df["pred"] = (probs >= args.threshold).astype(int)
