@@ -68,16 +68,16 @@ def tokens_to_vectors(tokens: list, embeddings, dim: int = 300) -> np.ndarray:
     return np.array(vecs) if vecs else np.zeros((1, dim))
 
 
-def load_and_preprocess(path: str, glove, dim: int = 100) -> pd.DataFrame:
+def load_and_preprocess(path: str, embeddings, dim: int = 100) -> pd.DataFrame:
     """Load a CSV file and add tokenised + vectorised columns for claims and evidence.
 
     Expects the CSV to have at least 'Claim' and 'Evidence' columns
     (and optionally 'label' for supervised data).
 
     Args:
-        path: path to the CSV file.
-        glove: pretrained embeddings (gensim KeyedVectors).
-        dim:   dimensionality of the embeddings.
+        path:       path to the CSV file.
+        embeddings: pretrained word embeddings (gensim KeyedVectors).
+        dim:        dimensionality of the embeddings.
 
     Returns:
         DataFrame with added columns: claim_tokens, evidence_tokens,
@@ -88,8 +88,8 @@ def load_and_preprocess(path: str, glove, dim: int = 100) -> pd.DataFrame:
     df["claim_tokens"] = df["Claim"].apply(preprocess)
     df["evidence_tokens"] = df["Evidence"].apply(preprocess)
     # Map each token list to a (num_tokens, dim) embedding matrix
-    df["claim_vecs"] = df["claim_tokens"].apply(lambda t: tokens_to_vectors(t, glove, dim))
-    df["evidence_vecs"] = df["evidence_tokens"].apply(lambda t: tokens_to_vectors(t, glove, dim))
+    df["claim_vecs"] = df["claim_tokens"].apply(lambda t: tokens_to_vectors(t, embeddings, dim))
+    df["evidence_vecs"] = df["evidence_tokens"].apply(lambda t: tokens_to_vectors(t, embeddings, dim))
     return df
 
 
