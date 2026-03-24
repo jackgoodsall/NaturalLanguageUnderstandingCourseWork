@@ -14,9 +14,41 @@ import os
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 from src.solution_b.data import get_dataloaders, load_and_preprocess, load_embeddings
 from src.solution_b.models import build_model
+
+
+class FocalLoss(nn.Module):
+    """Focal loss for binary classification (operates on raw logits).
+
+    Down-weights easy examples so the model focuses on hard ones.
+    With gamma=0 this is equivalent to BCEWithLogitsLoss.
+
+    Args:
+        gamma:      focusing parameter (higher = more focus on hard examples).
+        pos_weight: scalar weight for positive class (like BCEWithLogitsLoss).
+    """
+
+    def __init__(self, gamma: float = 2.0, pos_weight: torch.Tensor = None):
+        super().__init__()
+        self.gamma = gamma
+        self.pos_weight = pos_weight
+
+    def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        probs = torch.sigmoid(logits)
+        # Standard BCE per-element
+        bce = F.binary_cross_entropy_with_logits(logits, targets, reduction="none")
+        # p_t = probability of the correct class
+        p_t = probs * targets + (1 - probs) * (1 - targets)
+        focal_weight = (1 - p_t) ** self.gamma
+        loss = focal_weight * bce
+        # Apply pos_weight to positive samples
+        if self.pos_weight is not None:
+            weight = targets * (self.pos_weight - 1) + 1
+            loss = loss * weight
+        return loss.mean()
 
 
 def train_step(
@@ -26,16 +58,18 @@ def train_step(
     device: str,
     X: dict,
     y: torch.Tensor,
+    max_grad_norm: float = 0.0,
 ) -> float:
     """Perform a single gradient-update step on one mini-batch.
 
     Args:
-        model:     the model to train.
-        loss_fn:   loss function (e.g. BCEWithLogitsLoss).
-        optimiser: optimiser instance (e.g. AdamW).
-        device:    'cuda' or 'cpu'.
-        X:         batch dict with 'claim', 'evidence', lengths.
-        y:         (B,) ground-truth labels.
+        model:         the model to train.
+        loss_fn:       loss function (e.g. BCEWithLogitsLoss or FocalLoss).
+        optimiser:     optimiser instance (e.g. AdamW).
+        device:        'cuda' or 'cpu'.
+        X:             batch dict with 'claim', 'evidence', lengths.
+        y:             (B,) ground-truth labels.
+        max_grad_norm: if > 0, clip gradient norms to this value.
 
     Returns:
         Scalar loss value for this batch.
@@ -45,6 +79,8 @@ def train_step(
     loss = loss_fn(outputs.squeeze(-1), y)
     optimiser.zero_grad()
     loss.backward()
+    if max_grad_norm > 0:
+        nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
     optimiser.step()
     return loss.item()
 
@@ -89,6 +125,7 @@ def train_loop(
     patience: int = 5,
     checkpoint_path: str = None,
     verbose: bool = True,
+    max_grad_norm: float = 0.0,
 ) -> list:
     """Train a model with early stopping and LR scheduling.
 
@@ -138,7 +175,7 @@ def train_loop(
             # Move batch to device
             X = {k: v.to(device) for k, v in X.items()}
             y = y.to(device)
-            train_loss += train_step(model, loss_fn, optimiser, device, X, y)
+            train_loss += train_step(model, loss_fn, optimiser, device, X, y, max_grad_norm)
         train_loss /= len(train_dl)
 
         row = {"epoch": epoch + 1, "train_loss": train_loss}
@@ -188,15 +225,29 @@ def parse_args():
     parser.add_argument("--embeddings",  default="fasttext-wiki-news-subwords-300")
     # Model architecture
     parser.add_argument("--hidden-size", type=int,   default=128)
-    parser.add_argument("--num-layers",  type=int,   default=3)
+    parser.add_argument("--num-layers",  type=int,   default=1)
     parser.add_argument("--dropout",     type=float, default=0.2)
     parser.add_argument("--head",        default="mlp",
                         choices=["mlp", "linear", "deep_mlp"])
+    parser.add_argument("--embed-proj",  action="store_true",
+                        help="Add a trainable projection layer on top of frozen embeddings.")
     # Training hyperparameters
     parser.add_argument("--lr",          type=float, default=5e-4)
     parser.add_argument("--batch-size",  type=int,   default=16)
     parser.add_argument("--epochs",      type=int,   default=50)
     parser.add_argument("--patience",    type=int,   default=5)
+    # Data augmentation
+    parser.add_argument("--token-dropout", type=float, default=0.0,
+                        help="Probability of dropping each token embedding during training.")
+    parser.add_argument("--noise-sigma",   type=float, default=0.0,
+                        help="Std of Gaussian noise added to embeddings during training.")
+    parser.add_argument("--oversample",    type=float, default=0.0,
+                        help="Oversample minority class to this ratio of majority (1.0=balanced).")
+    # Training improvements
+    parser.add_argument("--focal-gamma",   type=float, default=0.0,
+                        help="Focal loss gamma (0=standard BCE, 2.0=recommended focal).")
+    parser.add_argument("--grad-clip",     type=float, default=0.0,
+                        help="Max gradient norm for clipping (0=disabled, 1.0=recommended).")
     return parser.parse_args()
 
 
@@ -214,7 +265,12 @@ def main():
     print("Preprocessing data")
     train_df = load_and_preprocess(args.train, embeddings, dim)
     dev_df = load_and_preprocess(args.dev, embeddings, dim)
-    train_dl, dev_dl = get_dataloaders(train_df, dev_df, args.batch_size)
+    train_dl, dev_dl = get_dataloaders(
+        train_df, dev_df, args.batch_size,
+        token_dropout_p=args.token_dropout,
+        noise_sigma=args.noise_sigma,
+        oversample_ratio=args.oversample,
+    )
 
     # --- Build model ---
     config = {
@@ -223,6 +279,7 @@ def main():
         "num_layers": args.num_layers,
         "dropout": args.dropout,
         "head": args.head,
+        "embed_projection": args.embed_proj,
     }
     model = build_model(config)
     n_params = sum(p.numel() for p in model.parameters())
@@ -235,7 +292,11 @@ def main():
     n_neg = (train_df["label"] == 0).sum()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     pos_weight = torch.tensor([n_neg / n_pos], dtype=torch.float32, device=device)
-    loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
+    if args.focal_gamma > 0:
+        loss_fn = FocalLoss(gamma=args.focal_gamma, pos_weight=pos_weight)
+        print(f"Using focal loss (gamma={args.focal_gamma})")
+    else:
+        loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
     optimiser = torch.optim.AdamW(model.parameters(), lr=args.lr)
     checkpoint_path = os.path.join(args.output_dir, "best_model.pt")
@@ -250,6 +311,7 @@ def main():
         n_epochs=args.epochs,
         patience=args.patience,
         checkpoint_path=checkpoint_path,
+        max_grad_norm=args.grad_clip,
     )
 
     # --- Save run metadata (config + training history) ---

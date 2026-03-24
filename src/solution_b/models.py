@@ -159,9 +159,20 @@ class ESIMLSTMModel(nn.Module):
         num_layers: int,
         p_dropout: float = 0.2,
         head: str = "mlp",
+        embed_projection: bool = False,
     ):
         super().__init__()
         D = 2 * hidden_size  # BiLSTM output dim (forward + backward)
+
+        # Optional: trainable projection of frozen embeddings
+        if embed_projection:
+            self.embed_proj = nn.Sequential(
+                nn.Linear(embedding_size, embedding_size),
+                nn.GELU(),
+                nn.Dropout(p_dropout),
+            )
+        else:
+            self.embed_proj = None
 
         # Stage 1: shared encoder for both claim and evidence
         self.encoder = BiLSTMEncoder(embedding_size, hidden_size, num_layers, p_dropout)
@@ -258,6 +269,11 @@ class ESIMLSTMModel(nn.Module):
         claim, evidence = X["claim"], X["evidence"]
         c_lens, e_lens = X["claim_lens"], X["evidence_lens"]
 
+        # Optional: project frozen embeddings into a learned space
+        if self.embed_proj is not None:
+            claim = self.embed_proj(claim)
+            evidence = self.embed_proj(evidence)
+
         # Build padding masks for attention masking
         mask_c = self._padding_mask(c_lens, claim.size(1))
         mask_e = self._padding_mask(e_lens, evidence.size(1))
@@ -336,4 +352,5 @@ def build_model(config: dict) -> nn.Module:
         num_layers=config["num_layers"],
         p_dropout=config.get("dropout", 0.2),
         head=config.get("head", "mlp"),
+        embed_projection=config.get("embed_projection", False),
     )

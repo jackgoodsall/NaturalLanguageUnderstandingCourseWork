@@ -98,9 +98,17 @@ class ClaimEvidenceDataset(Dataset):
 
     Each sample is a dict with 'claim' and 'evidence' tensors (variable length)
     plus an optional scalar label.
+
+    Supports train-time augmentations:
+      - token_dropout_p: probability of zeroing out each token's embedding
+      - noise_sigma: std of Gaussian noise added to embeddings
+    Set augment=True to enable (typically only for the training set).
     """
 
-    def __init__(self, claims, evidences, labels=None):
+    def __init__(
+        self, claims, evidences, labels=None,
+        augment=False, token_dropout_p=0.0, noise_sigma=0.0,
+    ):
         # Convert numpy arrays to float tensors up-front so DataLoader is fast
         self.claims = [torch.tensor(c, dtype=torch.float32) for c in claims]
         self.evidences = [torch.tensor(e, dtype=torch.float32) for e in evidences]
@@ -109,12 +117,32 @@ class ClaimEvidenceDataset(Dataset):
             if labels is not None
             else None
         )
+        self.augment = augment
+        self.token_dropout_p = token_dropout_p
+        self.noise_sigma = noise_sigma
+
+    def _apply_augmentation(self, vec: torch.Tensor) -> torch.Tensor:
+        """Apply token dropout and Gaussian noise to an embedding matrix."""
+        if self.token_dropout_p > 0:
+            # Bernoulli mask: 0 = dropped, 1 = kept (per-token, applied to whole row)
+            mask = torch.bernoulli(
+                torch.full((vec.size(0), 1), 1.0 - self.token_dropout_p)
+            )
+            vec = vec * mask
+        if self.noise_sigma > 0:
+            vec = vec + torch.randn_like(vec) * self.noise_sigma
+        return vec
 
     def __len__(self):
         return len(self.claims)
 
     def __getitem__(self, idx):
-        item = {"claim": self.claims[idx], "evidence": self.evidences[idx]}
+        claim = self.claims[idx]
+        evidence = self.evidences[idx]
+        if self.augment:
+            claim = self._apply_augmentation(claim)
+            evidence = self._apply_augmentation(evidence)
+        item = {"claim": claim, "evidence": evidence}
         label = self.labels[idx] if self.labels is not None else None
         return item, label
 
@@ -159,23 +187,62 @@ def collate_fn(batch):
     return result, None
 
 
+def oversample_minority(df: pd.DataFrame, ratio: float = 1.0) -> pd.DataFrame:
+    """Oversample the minority class by duplicating rows.
+
+    Args:
+        df:    DataFrame with a 'label' column.
+        ratio: target ratio of minority-to-majority (1.0 = fully balanced).
+               0.0 = no oversampling.
+
+    Returns:
+        DataFrame with additional minority-class rows appended.
+    """
+    if ratio <= 0:
+        return df
+    counts = df["label"].value_counts()
+    minority_label = counts.idxmin()
+    majority_count = counts.max()
+    minority_count = counts.min()
+    target = int(majority_count * ratio)
+    n_extra = target - minority_count
+    if n_extra <= 0:
+        return df
+    minority_rows = df[df["label"] == minority_label]
+    # Sample with replacement to get the desired number of extra rows
+    extra = minority_rows.sample(n=n_extra, replace=True, random_state=None)
+    return pd.concat([df, extra], ignore_index=True)
+
+
 def get_dataloaders(
     train_df: pd.DataFrame,
     dev_df: pd.DataFrame,
     batch_size: int = 32,
+    token_dropout_p: float = 0.0,
+    noise_sigma: float = 0.0,
+    oversample_ratio: float = 0.0,
 ):
     """Build train and dev DataLoaders from preprocessed DataFrames.
 
     Args:
-        train_df: DataFrame with claim_vecs, evidence_vecs, label columns.
-        dev_df:   same format as train_df.
-        batch_size: mini-batch size.
+        train_df:         DataFrame with claim_vecs, evidence_vecs, label columns.
+        dev_df:           same format as train_df.
+        batch_size:       mini-batch size.
+        token_dropout_p:  probability of dropping each token embedding (train only).
+        noise_sigma:      std of Gaussian noise on embeddings (train only).
+        oversample_ratio: oversample minority class to this fraction of majority
+                          (1.0 = balanced, 0.0 = no oversampling).
 
     Returns:
         (train_dataloader, dev_dataloader) tuple.
     """
+    # Oversample minority class in training data
+    if oversample_ratio > 0:
+        train_df = oversample_minority(train_df, oversample_ratio)
+
     train_ds = ClaimEvidenceDataset(
-        train_df["claim_vecs"], train_df["evidence_vecs"], train_df["label"]
+        train_df["claim_vecs"], train_df["evidence_vecs"], train_df["label"],
+        augment=True, token_dropout_p=token_dropout_p, noise_sigma=noise_sigma,
     )
     dev_ds = ClaimEvidenceDataset(
         dev_df["claim_vecs"], dev_df["evidence_vecs"], dev_df["label"]

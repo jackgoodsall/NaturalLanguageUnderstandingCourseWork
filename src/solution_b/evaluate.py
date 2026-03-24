@@ -15,7 +15,13 @@ import os
 
 import numpy as np
 import torch
-from sklearn.metrics import classification_report, f1_score
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+    matthews_corrcoef,
+    precision_score,
+    recall_score,
+)
 from torch.utils.data import DataLoader
 
 from src.solution_b.data import ClaimEvidenceDataset, collate_fn, load_and_preprocess, load_embeddings
@@ -49,21 +55,19 @@ def get_probs(model: torch.nn.Module, dataloader, device: str) -> np.ndarray:
 def evaluate(probs: np.ndarray, labels: np.ndarray, threshold: float = 0.5) -> dict:
     """Compute classification metrics at a given probability threshold.
 
-    Args:
-        probs:     predicted probabilities (output of get_probs).
-        labels:    ground-truth binary labels (0 or 1).
-        threshold: decision boundary — predictions >= threshold are positive.
-
-    Returns:
-        Dict with keys: threshold, accuracy, f1_binary, f1_macro, report.
+    Uses the same metrics as the NLU shared-task scorer.
     """
     preds = (probs >= threshold).astype(int)
     return {
         "threshold": threshold,
-        "accuracy": float((preds == labels).mean()),
-        "f1_binary": float(f1_score(labels, preds, average="binary")),
-        "f1_macro": float(f1_score(labels, preds, average="macro")),
-        "report": classification_report(labels, preds),
+        "accuracy_score": float(accuracy_score(labels, preds)),
+        "macro_precision": float(precision_score(labels, preds, average="macro", zero_division=0)),
+        "macro_recall": float(recall_score(labels, preds, average="macro", zero_division=0)),
+        "macro_f1": float(f1_score(labels, preds, average="macro", zero_division=0)),
+        "weighted_macro_precision": float(precision_score(labels, preds, average="weighted", zero_division=0)),
+        "weighted_macro_recall": float(recall_score(labels, preds, average="weighted", zero_division=0)),
+        "weighted_macro_f1": float(f1_score(labels, preds, average="weighted", zero_division=0)),
+        "matthews_corrcoef": float(matthews_corrcoef(labels, preds)),
     }
 
 
@@ -169,6 +173,8 @@ def parse_args():
                         help="Print top-10 threshold sweep results.")
     parser.add_argument("--output",    default=None,
                         help="Optional path to save evaluation results as JSON.")
+    parser.add_argument("--submission", default=None,
+                        help="Path to save scorer-compatible submission file (one pred per line).")
     return parser.parse_args()
 
 
@@ -212,11 +218,11 @@ def main():
     if labels is not None:
         # --- Labelled data: compute and print metrics ---
         results = evaluate(probs, labels, args.threshold)
-        print(f"\nThreshold : {results['threshold']}")
-        print(f"Accuracy  : {results['accuracy']:.4f}")
-        print(f"F1 binary : {results['f1_binary']:.4f}")
-        print(f"F1 macro  : {results['f1_macro']:.4f}")
-        print(results["report"])
+        print(f"\nThreshold: {results['threshold']}")
+        for key, val in results.items():
+            if key == "threshold":
+                continue
+            print(f"  {key:30s} {val:.6f}")
 
         # Optional: sweep thresholds to find the best decision boundary
         if args.sweep:
@@ -233,6 +239,14 @@ def main():
             with open(args.output, "w") as f:
                 json.dump(results_out, f, indent=2)
             print(f"\nResults saved to {args.output}")
+
+        # Optional: save scorer-compatible submission file (one pred per line)
+        if args.submission:
+            preds = (probs >= args.threshold).astype(int)
+            with open(args.submission, "w") as f:
+                for p in preds:
+                    f.write(f"{p}\n")
+            print(f"Submission file saved to {args.submission} ({len(preds)} rows)")
     else:
         # --- Unlabelled data: output raw predictions ---
         print("No labels found — writing raw predictions.")
