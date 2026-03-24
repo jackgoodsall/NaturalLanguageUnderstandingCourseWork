@@ -1,0 +1,15 @@
+{
+  "research_id": "R001",
+  "question": "Which smaller transformer should replace microsoft/deberta-v3-base for Solution C on this MPS-constrained machine?",
+  "created_utc": "2026-03-18T17:05:00Z",
+  "status": "active",
+  "sources": [],
+  "local_evidence": [
+    "C_BASELINE_FULL_MPS_001 failed with MPS OOM after 37 seconds.",
+    "C_BASELINE_FULL_MPS_002 failed with MPS OOM after 34 seconds despite reduced max length, micro-batch size 1, and gradient checkpointing."
+  ],
+  "recommendation": "Replace microsoft/deberta-v3-base with a smaller primary candidate backed by official model documentation, then rerun under the experiment schema.",
+  "rejected_alternatives": [],
+  "invalidation_condition": "If the recommended smaller model still OOMs or performs materially worse than the accepted floor, replace it with the next-ranked fallback and supersede this record.",
+  "next_hypothesis_id": "H003"
+}

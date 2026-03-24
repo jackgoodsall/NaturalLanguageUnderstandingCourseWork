@@ -1,0 +1,65 @@
+{
+  "run_id": "C_REMOTE_A40_001",
+  "timestamp_utc": "2026-03-23T00:00:00Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Execute the full-data Solution C baseline on remote A40 hardware to verify operational viability and capture a reproducible metric record.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "auto",
+    "resolved": "cuda"
+  },
+  "commands": {
+    "train": "ssh -p 22141 -i ~/.ssh/id_ed25519 root@194.68.245.210 'cd /workspace/NaturalLanguageUnderstandingCourseWork && ln -sf official_coursework/trial_data/ED_trial.csv test.csv && source .venv/bin/activate && mkdir -p experiments/runs/C_REMOTE_A40_001 && jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_REMOTE_A40_001 --ExecutePreprocessor.timeout=0 2>&1 | tee experiments/runs/C_REMOTE_A40_001/stdout.log'",
+    "evaluate": "",
+    "infer": "",
+    "score": ""
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline/checkpoint-1345",
+    "prediction_csv": "predictions.csv",
+    "executed_notebook": "experiments/runs/C_REMOTE_A40_001/executed_solution_c_baseline.ipynb",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_001/result.json",
+    "log_path": "experiments/runs/C_REMOTE_A40_001/stdout.log"
+  },
+  "metrics": {
+    "accuracy": 0.7232534593317583,
+    "macro_precision": 0.0,
+    "macro_recall": 0.0,
+    "macro_f1": 0.0,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.0,
+    "binary_recall": 0.0,
+    "binary_f1": 0.0,
+    "matthews_corrcoef": null,
+    "threshold": null,
+    "train_runtime_seconds": 376.0,
+    "eval_runtime_seconds": 5.2552,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "reference_comparison": {
+    "reference_run_id": "OFFICIAL_BERT_DEV_001",
+    "delta_accuracy": -0.15119854066824162,
+    "delta_macro_f1": -0.834774,
+    "delta_matthews_corrcoef": null
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false
+  },
+  "notes": "Remote A40 run completed end-to-end and produced checkpoints plus an executed notebook, but eval_loss became NaN and dev precision/recall/F1 collapsed to 0.0. This confirms the infrastructure path works while the current Solution C training configuration is degenerate on real hardware."
+}

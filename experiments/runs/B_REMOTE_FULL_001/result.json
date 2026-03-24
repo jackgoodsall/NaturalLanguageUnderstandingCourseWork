@@ -1,0 +1,120 @@
+{
+  "run_id": "B_REMOTE_FULL_001",
+  "timestamp_utc": "2026-03-24T11:20:00Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_b",
+  "variant": "esim_bilstm_remote_artifact_probe",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Validate the saved Solution B artifacts on the dev set using the same evidence standard as Solution C and record a clean B-vs-C comparison baseline.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "auto",
+    "resolved": "mps"
+  },
+  "artifacts": {
+    "checkpoint_dir": "experiments/runs/B_REMOTE_FULL_001_artifacts/best_model.pt",
+    "meta_path": "experiments/runs/B_REMOTE_FULL_001_artifacts/run_meta.json",
+    "prediction_csv": "experiments/runs/B_REMOTE_FULL_001_probe/dev_predictions.csv",
+    "metrics_json": "experiments/runs/B_REMOTE_FULL_001/result.json",
+    "probe_json": "experiments/runs/B_REMOTE_FULL_001_probe/result.json"
+  },
+  "model": {
+    "architecture": "esim_bilstm",
+    "embedding_name": "fasttext-wiki-news-subwords-300",
+    "embedding_dim": 300,
+    "hidden_size": 128,
+    "num_layers": 3,
+    "dropout": 0.2,
+    "head": "mlp",
+    "batch_size": 16,
+    "epochs_requested": 50,
+    "patience": 5,
+    "learning_rate": 0.0005
+  },
+  "metrics": {
+    "accuracy": 0.7904151198110023,
+    "macro_precision": 0.7502330416626977,
+    "macro_recall": 0.7929973367629151,
+    "macro_f1": 0.7614803330678107,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.5895589558955896,
+    "binary_recall": 0.7987804878048781,
+    "binary_f1": 0.6784049715173486,
+    "matthews_corrcoef": 0.5415445125832371,
+    "threshold": 0.5,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0,
+    "confusion_matrix": [
+      [
+        3374,
+        912
+      ],
+      [
+        330,
+        1310
+      ]
+    ]
+  },
+  "threshold_probe": {
+    "baseline_threshold_0_5": {
+      "accuracy": 0.7904151198110023,
+      "macro_f1": 0.7614803330678107,
+      "binary_f1": 0.6784049715173486,
+      "matthews_corrcoef": 0.5415445125832371,
+      "prediction_rate_positive": 0.37495781302733716
+    },
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.69,
+        "accuracy": 0.8209584880188998,
+        "prediction_rate_positive": 0.24519068511643605
+      },
+      "binary_f1": {
+        "threshold": 0.53,
+        "binary_f1": 0.6832530765115035,
+        "prediction_rate_positive": 0.3540330745865677
+      },
+      "macro_f1": {
+        "threshold": 0.6,
+        "macro_f1": 0.7752941991090772,
+        "prediction_rate_positive": 0.30982112723590954
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.6,
+        "matthews_corrcoef": 0.5529387441032668,
+        "prediction_rate_positive": 0.30982112723590954
+      }
+    }
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.0494431319608505,
+    "delta_macro_f1": -0.0469264305406169,
+    "delta_binary_f1": -0.0523751703266231,
+    "delta_matthews_corrcoef": -0.0790828727930525,
+    "best_tuned_delta_accuracy": -0.018899763752953,
+    "best_tuned_delta_macro_f1": -0.0331125644993504,
+    "best_tuned_delta_binary_f1": -0.0475270653324682,
+    "best_tuned_delta_matthews_corrcoef": -0.0676886412730228
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false,
+    "recommended_as_default_baseline": false,
+    "recommended_as_valid_comparison_baseline": true
+  },
+  "notes": "Solution B artifacts were reloaded and evaluated successfully under the same experiment schema as Solution C. The model is valid and threshold-tunable, but it underperforms C_REMOTE_A40_003 at the default threshold and still remains below the Solution C baseline after threshold tuning."
+}

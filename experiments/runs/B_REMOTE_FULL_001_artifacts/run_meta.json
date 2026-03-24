@@ -1,0 +1,96 @@
+{
+  "config": {
+    "embedding_size": 300,
+    "hidden_size": 128,
+    "num_layers": 3,
+    "dropout": 0.2,
+    "head": "mlp"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8510674177603208,
+      "val_loss": 0.7964457080691972
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7357465471144502,
+      "val_loss": 0.7037878455820109
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6938379597818984,
+      "val_loss": 0.6914997261489498
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.6620961074603091,
+      "val_loss": 0.7024949635617496
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.6444394411872311,
+      "val_loss": 0.6755245992276225
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.626588055868131,
+      "val_loss": 0.7156376065912272
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.6125379094071548,
+      "val_loss": 0.6656899005174637
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.5947974892907869,
+      "val_loss": 0.6732519964644851
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.5812846697451457,
+      "val_loss": 0.6378675483950386
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.5678716327898121,
+      "val_loss": 0.7097378293820469
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.5540806305618977,
+      "val_loss": 0.6552017305819493
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.5452110455381826,
+      "val_loss": 0.6779464423013826
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.49731698120947665,
+      "val_loss": 0.7280805093258861
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.48155402635885436,
+      "val_loss": 0.7051580847313783
+    }
+  ],
+  "args": {
+    "train": "training_data/train.csv",
+    "dev": "training_data/dev.csv",
+    "output_dir": "outputs/solution_b_full_remote_001",
+    "embeddings": "fasttext-wiki-news-subwords-300",
+    "hidden_size": 128,
+    "num_layers": 3,
+    "dropout": 0.2,
+    "head": "mlp",
+    "lr": 0.0005,
+    "batch_size": 16,
+    "epochs": 50,
+    "patience": 5,
+    "device": "auto"
+  }
+}

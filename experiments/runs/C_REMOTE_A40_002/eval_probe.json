@@ -1,0 +1,81 @@
+{
+  "batch_size": 32,
+  "data_csv": "training_data/dev.csv",
+  "device": "cuda",
+  "label_counts": {
+    "0": 4286,
+    "1": 1640
+  },
+  "max_length": 256,
+  "mean_logits": [
+    0.8447774648666382,
+    -0.9323174953460693
+  ],
+  "metrics": {
+    "accuracy": 0.8083023962200473,
+    "binary_f1": 0.6770892552586697,
+    "binary_precision": 0.634185303514377,
+    "binary_recall": 0.7262195121951219,
+    "confusion_matrix": [
+      [
+        3599,
+        687
+      ],
+      [
+        449,
+        1191
+      ]
+    ],
+    "macro_f1": 0.7703900799931458,
+    "macro_precision": 0.7616331655911805,
+    "macro_recall": 0.7829650990746958,
+    "matthews_corrcoef": 0.5441803179929782
+  },
+  "model_dir": "outputs/deberta_v3_baseline_plain_trainer/best_model",
+  "positive_probability_max": 0.7797375321388245,
+  "positive_probability_mean": 0.26528647541999817,
+  "positive_probability_min": 0.01199493557214737,
+  "prediction_counts": {
+    "0": 4048,
+    "1": 1878
+  },
+  "prediction_rate_positive": 0.31690853864326696,
+  "predictions_out": "experiments/runs/C_REMOTE_A40_002/dev_predictions.csv",
+  "rows": 5926,
+  "sample_rows": [
+    {
+      "Claim": "Democracy should be done away with.",
+      "Evidence": "Amartya Sen, an Indian economist and Nobel laureate, has contended that countries with democratic governance and a free media have almost never experienced prolonged famines [REF].",
+      "pos_prob": 0.138369619846344,
+      "pred": 0
+    },
+    {
+      "Claim": "Polygamy should be made legal.",
+      "Evidence": "The Supreme Court's unanimous decision in Reynolds in 1878 outlined that marriage contributes to sustaining conditions where freedom can prosper. Polygamy, in any form, leads to social structures that restrict and weaken social freedom and democracy. Western history has taught us that true democratic self-governance starts within the monogamous family.",
+      "pos_prob": 0.5905405282974243,
+      "pred": 1
+    },
+    {
+      "Claim": "Hunting should be banned",
+      "Evidence": "In total it is estimated that Ceau\u015fescu received a total of 270 gold medals, 114 silver medals and 34 bronze medals according to CIC (Conseil International de la Chasse et de la Conservation du Gibier - International Hunting and Game Conservation Council) for the trophies he presented in exhibit.",
+      "pos_prob": 0.016368264332413673,
+      "pred": 0
+    },
+    {
+      "Claim": "Television should be given up.",
+      "Evidence": "Barbera mentioned that they had to either adjust to television budgets or switch professions [REF].[REF]",
+      "pos_prob": 0.02848806232213974,
+      "pred": 0
+    },
+    {
+      "Claim": "Abortions ought to be prohibited.",
+      "Evidence": "According to a poll conducted by Angus Reid Strategies in June 2008, nearly 46% of those surveyed think abortion should be allowed in every situation.",
+      "pos_prob": 0.590545654296875,
+      "pred": 1
+    }
+  ],
+  "std_logits": [
+    0.9200977683067322,
+    0.948760449886322
+  ]
+}

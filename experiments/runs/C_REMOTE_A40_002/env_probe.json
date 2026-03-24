@@ -1,0 +1,122 @@
+{
+  "cwd": "/workspace/NaturalLanguageUnderstandingCourseWork",
+  "env": {
+    "CUDA_VISIBLE_DEVICES": null,
+    "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+    "PYTHONPATH": null,
+    "VIRTUAL_ENV": null
+  },
+  "imports": [
+    {
+      "file": "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages/torch/__init__.py",
+      "module": "torch",
+      "seconds": 7.1687,
+      "status": "ok",
+      "version": "2.10.0+cu128"
+    },
+    {
+      "error": "Timed out while importing module after signal 14",
+      "error_type": "ImportTimeoutError",
+      "module": "transformers",
+      "seconds": 20.0019,
+      "status": "error"
+    },
+    {
+      "file": "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages/datasets/__init__.py",
+      "module": "datasets",
+      "seconds": 4.9912,
+      "status": "ok",
+      "version": "4.8.2"
+    },
+    {
+      "file": "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages/numpy/__init__.py",
+      "module": "numpy",
+      "seconds": 0.0,
+      "status": "ok",
+      "version": "2.4.3"
+    },
+    {
+      "file": "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages/pandas/__init__.py",
+      "module": "pandas",
+      "seconds": 0.0,
+      "status": "ok",
+      "version": "3.0.1"
+    },
+    {
+      "file": "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages/sklearn/__init__.py",
+      "module": "sklearn",
+      "seconds": 5.2926,
+      "status": "ok",
+      "version": "1.8.0"
+    }
+  ],
+  "kernelspecs": {
+    "kernelspecs": {
+      "nlu-coursework-pod": {
+        "resource_dir": "/root/.local/share/jupyter/kernels/nlu-coursework-pod",
+        "spec": {
+          "argv": [
+            "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/bin/python",
+            "-Xfrozen_modules=off",
+            "-m",
+            "ipykernel_launcher",
+            "-f",
+            "{connection_file}"
+          ],
+          "display_name": "NLU CourseWork Pod",
+          "env": {},
+          "interrupt_mode": "signal",
+          "language": "python",
+          "metadata": {
+            "debugger": true
+          }
+        }
+      },
+      "python3": {
+        "resource_dir": "/usr/local/share/jupyter/kernels/python3",
+        "spec": {
+          "argv": [
+            "python",
+            "-m",
+            "ipykernel_launcher",
+            "-f",
+            "{connection_file}"
+          ],
+          "display_name": "Python 3 (ipykernel)",
+          "env": {},
+          "interrupt_mode": "signal",
+          "language": "python",
+          "metadata": {
+            "debugger": true
+          }
+        }
+      }
+    }
+  },
+  "path_head": [
+    "/workspace/NaturalLanguageUnderstandingCourseWork/experiments/debug",
+    "/usr/lib/python312.zip",
+    "/usr/lib/python3.12",
+    "/usr/lib/python3.12/lib-dynload",
+    "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages"
+  ],
+  "site_packages": [
+    "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/site-packages",
+    "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/local/lib/python3.12/dist-packages",
+    "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3/dist-packages",
+    "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/lib/python3.12/dist-packages"
+  ],
+  "sys_executable": "/workspace/NaturalLanguageUnderstandingCourseWork/.venv/bin/python",
+  "sys_version": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+  "torch": {
+    "cuda_available": true,
+    "cuda_device_count": 1,
+    "cuda_devices": [
+      "NVIDIA A40"
+    ],
+    "mps_available": false,
+    "status": "ok",
+    "version": "2.10.0+cu128"
+  },
+  "usersite": "/root/.local/lib/python3.12/site-packages"
+}

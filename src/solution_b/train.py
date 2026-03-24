@@ -17,6 +17,7 @@ import torch.nn as nn
 
 from src.solution_b.data import get_dataloaders, load_and_preprocess, load_embeddings
 from src.solution_b.models import build_model
+from src.solution_b.runtime import resolve_device
 
 
 def train_step(
@@ -106,7 +107,7 @@ def train_loop(
         optimiser:       optimiser instance.
         train_dl:        training DataLoader.
         val_dl:          validation DataLoader (if None, no validation is done).
-        device:          'cuda' or 'cpu' (auto-detected if None).
+        device:          accelerator target ('cuda', 'mps', or 'cpu').
         n_epochs:        maximum number of epochs.
         patience:        early stopping patience (epochs without improvement).
         checkpoint_path: file path to save best model weights (.pt).
@@ -117,7 +118,7 @@ def train_loop(
         and optionally 'val_loss'.
     """
     if device is None:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = resolve_device()
 
     model.to(device)
 
@@ -197,12 +198,16 @@ def parse_args():
     parser.add_argument("--batch-size",  type=int,   default=16)
     parser.add_argument("--epochs",      type=int,   default=50)
     parser.add_argument("--patience",    type=int,   default=5)
+    parser.add_argument("--device",      default="auto",
+                        choices=["auto", "cpu", "cuda", "mps"])
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
+    device = resolve_device(args.device)
+    print(f"Using device: {device}")
 
     # --- Load pretrained word embeddings ---
     print("Loading embeddings")
@@ -233,7 +238,6 @@ def main():
     # the minority class to counteract label imbalance
     n_pos = (train_df["label"] == 1).sum()
     n_neg = (train_df["label"] == 0).sum()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
     pos_weight = torch.tensor([n_neg / n_pos], dtype=torch.float32, device=device)
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
@@ -247,6 +251,7 @@ def main():
         optimiser,
         train_dl,
         dev_dl,
+        device=device,
         n_epochs=args.epochs,
         patience=args.patience,
         checkpoint_path=checkpoint_path,

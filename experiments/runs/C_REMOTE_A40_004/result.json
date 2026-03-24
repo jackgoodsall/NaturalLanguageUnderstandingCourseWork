@@ -1,0 +1,66 @@
+{
+  "run_id": "C_REMOTE_A40_004",
+  "timestamp_utc": "2026-03-23T17:35:00Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_cosine_5ep",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Run a single-variable scheduler experiment on the remote A40, replacing the linear learning-rate schedule with cosine while holding the five-epoch plain-Trainer setup constant.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "auto",
+    "resolved": "cuda"
+  },
+  "commands": {
+    "train": "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 root@194.68.245.210 -p 22141 'set -e && cd /workspace/NaturalLanguageUnderstandingCourseWork && export SOLUTION_C_EPOCHS=5 && export SOLUTION_C_LR_SCHEDULER=cosine && export SOLUTION_C_OUT_DIR=./outputs/deberta_v3_baseline_plain_trainer_5ep_cosine && export SOLUTION_C_SAVE_DIR=./outputs/deberta_v3_baseline_plain_trainer_5ep_cosine/best_model && rm -rf \"$SOLUTION_C_OUT_DIR\" && mkdir -p experiments/runs/C_REMOTE_A40_004 && .venv/bin/jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --ExecutePreprocessor.kernel_name=nlu-coursework-pod --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_REMOTE_A40_004 --ExecutePreprocessor.timeout=0 2>&1 | tee experiments/runs/C_REMOTE_A40_004/stdout.log'",
+    "evaluate": "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 root@194.68.245.210 -p 22141 'cd /workspace/NaturalLanguageUnderstandingCourseWork && mkdir -p experiments/runs/C_REMOTE_A40_004_probe && .venv/bin/python experiments/debug/solution_c_eval_probe.py --model-dir outputs/deberta_v3_baseline_plain_trainer_5ep_cosine/checkpoint-5380 --data-csv training_data/dev.csv --device auto --json-out experiments/runs/C_REMOTE_A40_004_probe/result.json --predictions-out experiments/runs/C_REMOTE_A40_004_probe/dev_predictions.csv'",
+    "infer": "",
+    "score": ""
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_cosine/checkpoint-5380",
+    "prediction_csv": "experiments/runs/C_REMOTE_A40_004_probe/dev_predictions.csv",
+    "executed_notebook": "experiments/runs/C_REMOTE_A40_004/executed_solution_c_baseline.ipynb",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_004/result.json",
+    "log_path": "experiments/runs/C_REMOTE_A40_004/stdout.log",
+    "probe_json": "experiments/runs/C_REMOTE_A40_004_probe/result.json"
+  },
+  "metrics": {
+    "accuracy": 0.8307458656766791,
+    "macro_precision": 0.7889473472702948,
+    "macro_recall": 0.8242667561999932,
+    "macro_f1": 0.8017299044802142,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.657751362060426,
+    "binary_recall": 0.8097560975609757,
+    "binary_f1": 0.7258813883574747,
+    "matthews_corrcoef": 0.6121961091412832,
+    "threshold": null,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.0091123860951737,
+    "delta_macro_f1": -0.0066768591282134,
+    "delta_matthews_corrcoef": -0.0084312762350064
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false
+  },
+  "notes": "Single-variable cosine scheduler run completed cleanly on the remote A40, but the best checkpoint (epoch 4 / checkpoint-5380) regressed versus C_REMOTE_A40_003 on accuracy, macro_f1, binary_f1, and MCC. This closes the cosine-scheduler branch for now and keeps the linear-scheduler epoch-4 checkpoint as the canonical Solution C baseline."
+}

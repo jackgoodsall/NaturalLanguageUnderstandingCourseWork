@@ -1,0 +1,68 @@
+{
+  "run_id": "C_REMOTE_A40_006",
+  "timestamp_utc": "2026-03-23T19:28:55Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_wd0_5ep",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Test whether removing weight decay improves the current remote A40 Solution C baseline while holding scheduler, epoch budget, and checkpoint selection constant.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "cuda",
+    "resolved": "cuda"
+  },
+  "commands": {
+    "train": "SOLUTION_C_EPOCHS=5 SOLUTION_C_LR=2e-5 SOLUTION_C_LR_SCHEDULER=linear SOLUTION_C_WEIGHT_DECAY=0.0 SOLUTION_C_OUT_DIR=./outputs/deberta_v3_baseline_plain_trainer_5ep_wd0 SOLUTION_C_SAVE_DIR=./outputs/deberta_v3_baseline_plain_trainer_5ep_wd0/best_model jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_REMOTE_A40_006 --ExecutePreprocessor.timeout=0",
+    "audit": "python experiments/debug/solution_c_artifact_audit.py --output-root outputs/deberta_v3_baseline_plain_trainer_5ep_wd0 --json-out experiments/runs/C_REMOTE_A40_006_audit/result.json",
+    "probe": "python experiments/debug/solution_c_eval_probe.py --model-dir outputs/deberta_v3_baseline_plain_trainer_5ep_wd0/best_model --data-csv training_data/dev.csv --batch-size 32 --max-length 256 --device cuda --json-out experiments/runs/C_REMOTE_A40_006_probe/result.json --predictions-out experiments/runs/C_REMOTE_A40_006_probe/dev_predictions.csv"
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_wd0/checkpoint-5380",
+    "best_model_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_wd0/best_model",
+    "prediction_csv": "experiments/runs/C_REMOTE_A40_006_probe/dev_predictions.csv",
+    "executed_notebook": "experiments/runs/C_REMOTE_A40_006/executed_solution_c_baseline.ipynb",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_006/result.json",
+    "log_path": "experiments/runs/C_REMOTE_A40_006/stdout.log",
+    "audit_json": "experiments/runs/C_REMOTE_A40_006_audit/result.json",
+    "probe_json": "experiments/runs/C_REMOTE_A40_006_probe/result.json"
+  },
+  "metrics": {
+    "accuracy": 0.8341208234897064,
+    "macro_precision": 0.7926219796215984,
+    "macro_recall": 0.8279174681037524,
+    "macro_f1": 0.8055067173668999,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.6631892697466468,
+    "binary_recall": 0.8140243902439024,
+    "binary_f1": 0.730906104571585,
+    "matthews_corrcoef": 0.6195348534796807,
+    "threshold": null,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.005737428282146406,
+    "delta_macro_f1": -0.0029000462415276207,
+    "delta_binary_f1": 0.00012596272761333793,
+    "delta_matthews_corrcoef": -0.0010925318966088504
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false
+  },
+  "notes": "Single-variable weight_decay=0.0 run completed cleanly on the remote A40. Artifact audit still chose epoch 4 / checkpoint-5380 as best, with trainer-state eval_macro_f1 0.8056160041152676, but the direct checkpoint probe regressed versus C_REMOTE_A40_003 on accuracy, macro_f1, and MCC while only improving binary_f1 by 0.00012596272761333793."
+}

@@ -16,6 +16,7 @@ import torch.nn as nn
 
 from src.solution_b.data import get_dataloaders, load_and_preprocess, load_embeddings
 from src.solution_b.models import HEAD_REGISTRY, build_model
+from src.solution_b.runtime import resolve_device
 from src.solution_b.train import train_loop
 
 
@@ -39,7 +40,7 @@ def make_objective(train_df, dev_df, embedding_dim: int, n_epochs: int, patience
         embedding_dim: dimensionality of the pretrained embeddings (e.g. 300).
         n_epochs:      max epochs per trial (shorter than full training for speed).
         patience:      early stopping patience.
-        device:        'cuda' or 'cpu'.
+        device:        accelerator target ('cuda', 'mps', or 'cpu').
 
     Returns:
         A callable suitable for study.optimize().
@@ -66,7 +67,6 @@ def make_objective(train_df, dev_df, embedding_dim: int, n_epochs: int, patience
         # Class-imbalance weighting (same as in train.py)
         n_pos = (train_df["label"] == 1).sum()
         n_neg = (train_df["label"] == 0).sum()
-        device = "cuda" if torch.cuda.is_available() else "cpu"
         pos_weight = torch.tensor([n_neg / n_pos], dtype=torch.float32, device=device)
         loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
         optimiser = torch.optim.AdamW(model.parameters(), lr=lr)
@@ -109,13 +109,16 @@ def parse_args():
     parser.add_argument("--study-name", default="esim_lstm_hpo")
     parser.add_argument("--storage",    default=None,
                         help="Optuna storage URL for resumable studies, e.g. sqlite:///hpo.db")
+    parser.add_argument("--device",     default="auto",
+                        choices=["auto", "cpu", "cuda", "mps"])
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
+    print(f"Using device: {device}")
     # Infer embedding dimension from model name
     dim = int(args.embeddings.split("-")[-1])
 

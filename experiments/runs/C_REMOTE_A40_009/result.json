@@ -1,0 +1,71 @@
+{
+  "run_id": "C_REMOTE_A40_009",
+  "timestamp_utc": "2026-03-24T00:36:00Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_gradaccum2_5ep",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Test whether reducing grad_accum to 2 improves the current remote A40 Solution C baseline while holding scheduler, learning rate, weight decay, warmup, max length, and epoch budget constant.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "cuda",
+    "resolved": "cuda"
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_gradaccum2/checkpoint-2692",
+    "best_model_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_gradaccum2/best_model",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_009/result.json",
+    "remote_probe_json": "experiments/runs/C_REMOTE_A40_009_probe/result.json",
+    "remote_audit_json": "experiments/runs/C_REMOTE_A40_009_audit/result.json"
+  },
+  "metrics": {
+    "accuracy": 0.8288896388795141,
+    "macro_precision": 0.786192393094977,
+    "macro_recall": 0.8171487144759455,
+    "macro_f1": 0.7979796635004858,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.6590447154471545,
+    "binary_recall": 0.7908536585365854,
+    "binary_f1": 0.7189578713968958,
+    "matthews_corrcoef": 0.6025464282953352,
+    "threshold": 0.5,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "checkpoint_analysis": {
+    "best_epoch": 4.0,
+    "best_metric_name": "eval_macro_f1",
+    "best_metric_value": 0.7979796635004858,
+    "canonical_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_baseline_plain_trainer_5ep_gradaccum2/checkpoint-2692",
+    "latest_epoch": 5.0,
+    "latest_metric_name": "eval_macro_f1",
+    "latest_metric_value": 0.7776795765501204,
+    "regressed_after_best": true,
+    "checkpoint_count": 2
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.010968612892338715,
+    "delta_macro_f1": -0.010427100107941841,
+    "delta_binary_f1": -0.011822270447075891,
+    "delta_matthews_corrcoef": -0.01808095708095442
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false
+  },
+  "notes": "Single-variable grad_accum=2 run completed cleanly on the remote A40; best checkpoint was epoch 4 / checkpoint-2692, but the direct probe regressed versus C_REMOTE_A40_003 on accuracy, macro_f1, binary_f1, and MCC."
+}

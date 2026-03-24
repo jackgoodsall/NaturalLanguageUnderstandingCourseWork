@@ -1,0 +1,101 @@
+{
+  "run_id": "C_REMOTE_A40_010",
+  "timestamp_utc": "2026-03-24T11:14:31Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_classweights_5ep",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Test whether class-weighted training improves the remote A40 Solution C baseline, and distinguish default-threshold performance from calibrated-threshold performance.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "cuda",
+    "resolved": "cuda"
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+    "best_model_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/best_model",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_010/result.json",
+    "remote_probe_json": "experiments/runs/C_REMOTE_A40_010_probe/result.json",
+    "remote_audit_json": "experiments/runs/C_REMOTE_A40_010_audit/result.json"
+  },
+  "metrics": {
+    "accuracy": 0.8361457981775228,
+    "macro_precision": 0.7941735756907992,
+    "macro_recall": 0.8240788520632994,
+    "macro_f1": 0.8074706260462078,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.6683341670835418,
+    "binary_recall": 0.8115853658536586,
+    "binary_f1": 0.733168452871668,
+    "matthews_corrcoef": 0.6228844813758344,
+    "threshold": 0.5,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": 13.0594,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "checkpoint_analysis": {
+    "best_epoch": 4.0,
+    "best_metric_name": "eval_macro_f1",
+    "best_metric_value": 0.807521457455499,
+    "canonical_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+    "latest_epoch": 5.0,
+    "latest_metric_name": "eval_macro_f1",
+    "latest_metric_value": 0.7841335091983925,
+    "regressed_after_best": true,
+    "checkpoint_count": 2
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.003712453594330034,
+    "delta_macro_f1": -0.0009361375622197743,
+    "delta_binary_f1": 0.0023883110276963215,
+    "delta_matthews_corrcoef": 0.0022570959995448225
+  },
+  "threshold_probe": {
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.92,
+        "accuracy": 0.8498143773202835,
+        "prediction_rate_positive": 0.2321970975362808,
+        "delta_vs_reference_best": -0.0005062436719540653
+      },
+      "macro_f1": {
+        "threshold": 0.8,
+        "macro_f1": 0.8143801356604101,
+        "prediction_rate_positive": 0.28737765777927776,
+        "delta_vs_reference_best": 0.0042929626449979
+      },
+      "binary_f1": {
+        "threshold": 0.68,
+        "binary_f1": 0.7380748357612111,
+        "prediction_rate_positive": 0.3140398245021937,
+        "delta_vs_reference_best": 0.005871445930702657
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.68,
+        "matthews_corrcoef": 0.6314181317182258,
+        "prediction_rate_positive": 0.3140398245021937,
+        "delta_vs_reference_best": 0.00861372863007015
+      }
+    }
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false,
+    "recommended_as_default_baseline": false,
+    "recommended_as_calibrated_candidate": true
+  },
+  "notes": "Single-variable class-weighted run completed cleanly on the remote A40; best checkpoint remained epoch 4 / checkpoint-5380. At the default threshold, macro F1 was slightly below C_REMOTE_A40_003, so the baseline should not be replaced. Under calibrated thresholds, the branch improved macro F1, binary F1, and MCC and should be kept as a threshold-tuned candidate."
+}
