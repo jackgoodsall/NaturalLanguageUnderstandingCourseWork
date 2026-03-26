@@ -1,0 +1,58 @@
+{
+  "run_id": "SOLO_B0_FULL_001",
+  "solution_family": "solution_b",
+  "variant": "esim_fasttext_full",
+  "status": "completed",
+  "runtime": {
+    "platform": "runpod",
+    "workspace": "/workspace/NLU-solo-run-002",
+    "output_dir": "outputs/solution_b_b0_full_001"
+  },
+  "metrics_at_threshold_0_5": {
+    "accuracy": 0.7944650691866352,
+    "macro_f1": 0.7555666331854334,
+    "binary_f1": 0.6580572711959574,
+    "matthews_corrcoef": 0.5157427035169009
+  },
+  "threshold_probe": {
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.65,
+        "accuracy": 0.8057711778602767
+      },
+      "macro_f1": {
+        "threshold": 0.5,
+        "macro_f1": 0.7555666331854334
+      },
+      "binary_f1": {
+        "threshold": 0.45,
+        "binary_f1": 0.6630640367468252
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.45,
+        "matthews_corrcoef": 0.52001702178493
+      }
+    }
+  },
+  "targets": {
+    "official_lstm_floor": {
+      "accuracy": 0.8057711778602767,
+      "macro_f1": 0.7083478233131942,
+      "matthews_corrcoef": 0.46744082752748667
+    },
+    "team_branch_b_target": {
+      "accuracy": 0.813702328720891,
+      "macro_f1": 0.7752941991090772,
+      "binary_f1": 0.6823935558112774,
+      "matthews_corrcoef": 0.5529387441032668
+    }
+  },
+  "comparison": {
+    "beats_official_lstm_macro_f1": true,
+    "beats_official_lstm_mcc": true,
+    "beats_team_branch_b": false,
+    "delta_vs_team_branch_best_macro_f1": -0.019727565923643872,
+    "delta_vs_team_branch_best_binary_f1": -0.01932951976445285,
+    "delta_vs_team_branch_best_mcc": -0.032921722318336726
+  }
+}
