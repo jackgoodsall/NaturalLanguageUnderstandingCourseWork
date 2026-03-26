@@ -1,0 +1,178 @@
+{
+  "run_id": "C_REMOTE_A40_019",
+  "variant": "deberta_v3_transfer_seed3",
+  "device": "cuda",
+  "config": {
+    "model_name": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+    "max_length": 256,
+    "train_bs": 16,
+    "eval_bs": 32,
+    "grad_accum": 1,
+    "lr": 1e-05,
+    "epochs": 3,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.06,
+    "lr_scheduler_type": "linear",
+    "metric_for_best_model": "f1",
+    "seeds": [
+      42,
+      52,
+      62
+    ]
+  },
+  "seed_runs": [
+    {
+      "seed": 42,
+      "best_model_dir": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_42/best_model",
+      "best_model_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_42/checkpoint-4035",
+      "best_metric_name": "f1",
+      "best_metric_value": 0.8091168091168092,
+      "metrics_at_threshold_0_5": {
+        "accuracy": 0.8869389132635842,
+        "binary_precision": 0.7593582887700535,
+        "binary_recall": 0.8658536585365854,
+        "binary_f1": 0.8091168091168092,
+        "macro_precision": 0.8525588288031727,
+        "macro_recall": 0.8804303290349749,
+        "macro_f1": 0.8644001691232571,
+        "matthews_corrcoef": 0.7324590671041662,
+        "confusion_matrix": [
+          [
+            3836,
+            450
+          ],
+          [
+            220,
+            1420
+          ]
+        ]
+      },
+      "train_metrics": {
+        "train_runtime": 584.3061,
+        "train_samples_per_second": 110.428,
+        "train_steps_per_second": 6.906,
+        "train_loss": 0.25555818302480704,
+        "epoch": 3.0
+      }
+    },
+    {
+      "seed": 52,
+      "best_model_dir": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_52/best_model",
+      "best_model_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_52/checkpoint-4035",
+      "best_metric_name": "f1",
+      "best_metric_value": 0.8139337298215803,
+      "metrics_at_threshold_0_5": {
+        "accuracy": 0.8891326358420519,
+        "binary_precision": 0.7599153886832364,
+        "binary_recall": 0.876219512195122,
+        "binary_f1": 0.8139337298215803,
+        "macro_precision": 0.854802799669995,
+        "macro_recall": 0.8851466203066137,
+        "macro_f1": 0.8674884368372413,
+        "matthews_corrcoef": 0.7393269890061449,
+        "confusion_matrix": [
+          [
+            3832,
+            454
+          ],
+          [
+            203,
+            1437
+          ]
+        ]
+      },
+      "train_metrics": {
+        "train_runtime": 585.8096,
+        "train_samples_per_second": 110.145,
+        "train_steps_per_second": 6.888,
+        "train_loss": 0.2565187246235182,
+        "epoch": 3.0
+      }
+    },
+    {
+      "seed": 62,
+      "best_model_dir": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_62/best_model",
+      "best_model_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_62/checkpoint-4035",
+      "best_metric_name": "f1",
+      "best_metric_value": 0.8065796937039138,
+      "metrics_at_threshold_0_5": {
+        "accuracy": 0.8849139385757678,
+        "binary_precision": 0.7539766702014846,
+        "binary_recall": 0.8670731707317073,
+        "binary_f1": 0.8065796937039138,
+        "macro_precision": 0.8500081370809403,
+        "macro_recall": 0.8794068606808327,
+        "macro_f1": 0.8623338055355985,
+        "matthews_corrcoef": 0.7288223061971308,
+        "confusion_matrix": [
+          [
+            3822,
+            464
+          ],
+          [
+            218,
+            1422
+          ]
+        ]
+      },
+      "train_metrics": {
+        "train_runtime": 581.2142,
+        "train_samples_per_second": 111.016,
+        "train_steps_per_second": 6.942,
+        "train_loss": 0.2577579494745758,
+        "epoch": 3.0
+      }
+    }
+  ],
+  "ensemble": {
+    "model_dirs": [
+      "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_42/best_model",
+      "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_52/best_model",
+      "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_seed3/seed_62/best_model"
+    ],
+    "metrics_at_threshold_0_5": {
+      "accuracy": 0.8889638879514006,
+      "binary_precision": 0.7606157112526539,
+      "binary_recall": 0.873780487804878,
+      "binary_f1": 0.8132803632236095,
+      "macro_precision": 0.8547017200498797,
+      "macro_recall": 0.8842770847797139,
+      "macro_f1": 0.8671348982304408,
+      "matthews_corrcoef": 0.7383867359239816,
+      "confusion_matrix": [
+        [
+          3835,
+          451
+        ],
+        [
+          207,
+          1433
+        ]
+      ]
+    },
+    "threshold_probe": {
+      "best_by_metric": {
+        "accuracy": {
+          "threshold": 0.91,
+          "accuracy": 0.8958825514681067,
+          "prediction_rate_positive": 0.23911576105298685
+        },
+        "binary_f1": {
+          "threshold": 0.66,
+          "binary_f1": 0.8147492625368732,
+          "prediction_rate_positive": 0.295308808639892
+        },
+        "macro_f1": {
+          "threshold": 0.73,
+          "macro_f1": 0.8702979131582779,
+          "prediction_rate_positive": 0.2850151873101586
+        },
+        "matthews_corrcoef": {
+          "threshold": 0.66,
+          "matthews_corrcoef": 0.7414099636644351,
+          "prediction_rate_positive": 0.295308808639892
+        }
+      }
+    }
+  }
+}
