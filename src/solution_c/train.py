@@ -109,7 +109,7 @@ def main() -> None:
         "load_best_model_at_end": True,
         "metric_for_best_model": "macro_f1",
         "greater_is_better": True,
-        "save_total_limit": 2,
+        "save_total_limit": 1,
         "report_to": [],
         "seed": args.seed,
         "data_seed": args.seed,
@@ -125,6 +125,10 @@ def main() -> None:
         training_kwargs["evaluation_strategy"] = "epoch"
     else:
         training_kwargs["eval_strategy"] = "epoch"
+    if "save_only_model" in signature.parameters:
+        training_kwargs["save_only_model"] = True
+    if "save_safetensors" in signature.parameters:
+        training_kwargs["save_safetensors"] = True
 
     training_args = TrainingArguments(**training_kwargs)
 
