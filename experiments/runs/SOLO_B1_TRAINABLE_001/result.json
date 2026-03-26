@@ -1,0 +1,45 @@
+{
+  "run_id": "SOLO_B1_TRAINABLE_001",
+  "solution_family": "solution_b",
+  "variant": "esim_fasttext_trainable_embeddings",
+  "status": "completed",
+  "runtime": {
+    "platform": "runpod",
+    "workspace": "/workspace/NLU-solo-run-002",
+    "output_dir": "outputs/solution_b_b1_trainable_embeddings_001"
+  },
+  "metrics_at_threshold_0_5": {
+    "accuracy": 0.7829902126223423,
+    "macro_f1": 0.757656483631523,
+    "binary_f1": 0.6793017456359102,
+    "matthews_corrcoef": 0.5436650092818748
+  },
+  "threshold_probe": {
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.6,
+        "accuracy": 0.8157273034087074
+      },
+      "macro_f1": {
+        "threshold": 0.6,
+        "macro_f1": 0.7765252604952311
+      },
+      "binary_f1": {
+        "threshold": 0.55,
+        "binary_f1": 0.6845206213176218
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.6,
+        "matthews_corrcoef": 0.5547140379755324
+      }
+    }
+  },
+  "comparison": {
+    "baseline_run_id": "SOLO_B0_FULL_001",
+    "delta_vs_b0_best_accuracy": 0.00995612554843067,
+    "delta_vs_b0_best_macro_f1": 0.02095862730979766,
+    "delta_vs_b0_best_binary_f1": 0.021456584570796616,
+    "delta_vs_b0_best_matthews_corrcoef": 0.034697016190602426,
+    "beats_team_branch_b_target": true
+  }
+}

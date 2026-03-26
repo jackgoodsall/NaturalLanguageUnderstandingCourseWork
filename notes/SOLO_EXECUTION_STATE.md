@@ -2,42 +2,41 @@
 
 ## Current state
 
-`SOLO_B0_FULL_001` is the first full-data solo `Solution B` baseline.
+`SOLO_B1_TRAINABLE_001` is the current solo `Solution B` leader.
 
 - model: ESIM-style BiLSTM pair classifier
 - embeddings: `fasttext-wiki-news-subwords-300`
+- setting change: embeddings made trainable
 - runtime: RunPod A40
-- run record: `experiments/runs/SOLO_B0_FULL_001/result.json`
+- run record: `experiments/runs/SOLO_B1_TRAINABLE_001/result.json`
+- promotion decision: `experiments/decisions/SOLO_D001_solution_b_b1_promotion.md`
 
 ## Result summary
 
 At threshold `0.5`:
 
-- accuracy: `0.7945`
-- macro F1: `0.7556`
-- binary F1: `0.6581`
-- MCC: `0.5157`
+- accuracy: `0.7830`
+- macro F1: `0.7577`
+- binary F1: `0.6793`
+- MCC: `0.5437`
 
 Best thresholded metrics:
 
-- best accuracy: `0.8058` at threshold `0.65`
-- best macro F1: `0.7556` at threshold `0.5`
-- best binary F1: `0.6631` at threshold `0.45`
-- best MCC: `0.5200` at threshold `0.45`
+- best accuracy: `0.8157` at threshold `0.6`
+- best macro F1: `0.7765` at threshold `0.6`
+- best binary F1: `0.6845` at threshold `0.55`
+- best MCC: `0.5547` at threshold `0.6`
 
 ## Interpretation
 
-This solo baseline clears the official non-transformer floor on `macro_f1` and `matthews_corrcoef`, so the fresh rebuild path is viable.
+This solo run beats the official non-transformer floor and also clears the current team-branch `Solution B` target on the tracked metrics.
 
-It does not yet beat the current team-branch `Solution B` target, so the next `B` work should be bounded tuning, not architecture churn.
+The `B` path is now strong enough that the next highest-value move is to stop broad `B` tuning and shift effort to solo `Solution C`.
 
-## Next bounded tuning step
+## Next bounded step
 
-Promote exactly one high-value `B1` change:
+Start solo `Solution C` from the locked research plan:
 
-1. keep the ESIM architecture fixed
-2. keep FastText fixed
-3. test trainable embeddings against the frozen-embedding baseline
-4. keep the same evaluation contract:
-   - primary: `macro_f1`
-   - guardrail: `matthews_corrcoef`
+1. build the stable `C0` DeBERTa cross-encoder path
+2. validate the single-model baseline on RunPod
+3. then run the first bounded `C` improvement branch only after the baseline is measured cleanly
