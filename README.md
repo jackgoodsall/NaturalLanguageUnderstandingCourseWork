@@ -7,33 +7,33 @@ Solution pairing: `B + C`
 
 If you are reviewing the branch and want the fastest path through the repo, start with:
 
-1. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/REVIEW_GUIDE.md`
-2. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/decisions/D010_solution_c_transfer_ensemble.md`
-3. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/baseline_ledger.csv`
+1. `REVIEW_GUIDE.md`
+2. `experiments/decisions/D010_solution_c_transfer_ensemble.md`
+3. `experiments/baseline_ledger.csv`
 
 Current lead paths:
 
 - `Solution B` competitive thresholded result:
-  - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+  - `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
 - `Solution C` primary result:
-  - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+  - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
 
 This repository contains two coursework solutions for the COMP34812 NLU coursework:
 
-1. `Solution B`: ESIM-style BiLSTM with pretrained FastText embeddings in `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/src/solution_b`
+1. `Solution B`: ESIM-style BiLSTM with pretrained FastText embeddings in `src/solution_b`
 2. `Solution C`: transformer-based DeBERTa notebooks in:
-   - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_baseline_development.ipynb`
-   - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_seed_ensemble_development.ipynb`
-   - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_fold_ensemble_development.ipynb`
+   - `solution_c_baseline_development.ipynb`
+   - `solution_c_5_seed_ensemble_development.ipynb`
+   - `solution_c_5_fold_ensemble_development.ipynb`
 
-Official coursework files are stored under `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/official_coursework`.
+Official coursework files are stored under `official_coursework`.
 
 ## Environment Setup
 
 Create the local environment:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -52,26 +52,26 @@ jupyter lab
 
 Training data used by the current code lives in:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/training_data/train.csv`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/training_data/dev.csv`
+- `training_data/train.csv`
+- `training_data/dev.csv`
 
 Official trial files and the local scorer live in:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/official_coursework/trial_data`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/official_coursework/nlu_bundle-feature-unified-local-scorer`
+- `official_coursework/trial_data`
+- `official_coursework/nlu_bundle-feature-unified-local-scorer`
 
 ## Solution B
 
 Primary code lives in:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/src/solution_b`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_b_development.ipynb`
+- `src/solution_b`
+- `solution_b_development.ipynb`
 
 Current validated baseline:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001/result.json`
+- `experiments/runs/B_REMOTE_FULL_001/result.json`
 - best thresholded comparison:
-  - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+  - `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
 
 Train:
 
@@ -113,17 +113,17 @@ Notes:
 
 Primary notebooks live at the repo root:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_baseline_development.ipynb`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_seed_ensemble_development.ipynb`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_fold_ensemble_development.ipynb`
+- `solution_c_baseline_development.ipynb`
+- `solution_c_5_seed_ensemble_development.ipynb`
+- `solution_c_5_fold_ensemble_development.ipynb`
 
 Current strongest validated run:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+- `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
 
 Current promotion decision:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/decisions/D010_solution_c_transfer_ensemble.md`
+- `experiments/decisions/D010_solution_c_transfer_ensemble.md`
 
 Run the notebooks from the project root with the `NLU CourseWork` kernel.
 
@@ -136,16 +136,16 @@ The transformer notebooks now:
 
 Recommended execution order:
 
-1. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_baseline_development.ipynb`
-2. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_seed_ensemble_development.ipynb`
-3. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_fold_ensemble_development.ipynb`
+1. `solution_c_baseline_development.ipynb`
+2. `solution_c_5_seed_ensemble_development.ipynb`
+3. `solution_c_5_fold_ensemble_development.ipynb`
 
 ## Local Scorer
 
 Run the official scorer:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/official_coursework/nlu_bundle-feature-unified-local-scorer
+cd official_coursework/nlu_bundle-feature-unified-local-scorer
 python3 -m unittest tests.test_local_scorer -v
 python3 local_scorer/main.py --task ed
 ```
@@ -154,9 +154,9 @@ python3 local_scorer/main.py --task ed
 
 Run history, decision records, and audit tooling live under:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/decisions`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/debug`
+- `experiments/runs`
+- `experiments/decisions`
+- `experiments/debug`
 
 ## Current Submission Gaps
 
@@ -165,8 +165,8 @@ Still incomplete on this branch:
 - final trained model artifacts and cloud links
 - final predictions on released test data
 - `model_card_b.md`
-- completed `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/model_card_c.md`
-- completed `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/poster.md`
+- completed `model_card_c.md`
+- completed `poster.md`
 
 ## Use of Generative AI Tools
 

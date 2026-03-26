@@ -11,7 +11,7 @@ The project is done when all of the following are true:
 1. `Solution B` trains, evaluates, and generates prediction files from saved artifacts.
 2. `Solution C` single-model baseline trains, evaluates, and generates prediction files from saved artifacts.
 3. Any retained ensemble path is numerically justified against the best single model.
-4. Every reported metric is backed by a run record that follows `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/run_result.schema.json`.
+4. Every reported metric is backed by a run record that follows `experiments/run_result.schema.json`.
 5. Submission artifacts are complete: README, poster, model cards, prediction files, and runnable demo paths.
 
 ## Verified Current State
@@ -27,8 +27,8 @@ The project is done when all of the following are true:
   - `BERT`: accuracy `0.874452`, macro F1 `0.834774`, MCC `0.674792`
 
 Source of truth for baseline metrics:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/official_coursework/nlu_bundle-feature-unified-local-scorer`
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/baseline_ledger.csv`
+- `official_coursework/nlu_bundle-feature-unified-local-scorer`
+- `experiments/baseline_ledger.csv`
 
 ## State Model
 
@@ -70,7 +70,7 @@ Exit Criteria:
 - canonical commands exist
 
 Acceptance Test:
-- a new run can be described entirely with the files under `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments`
+- a new run can be described entirely with the files under `experiments`
 
 ### WS2 — Solution C Single-Model Stabilization
 
@@ -174,16 +174,16 @@ Operational metrics:
 ## File Contract
 
 Run metadata must follow:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/run_result.schema.json`
+- `experiments/run_result.schema.json`
 
 Canonical template:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/run_result.template.json`
+- `experiments/run_result.template.json`
 
 Baseline table:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/baseline_ledger.csv`
+- `experiments/baseline_ledger.csv`
 
 Canonical commands:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/RUN_COMMANDS.md`
+- `experiments/RUN_COMMANDS.md`
 
 First hypothesis-run card:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/hypotheses/H001_solution_c_baseline_mps.md`
+- `experiments/hypotheses/H001_solution_c_baseline_mps.md`

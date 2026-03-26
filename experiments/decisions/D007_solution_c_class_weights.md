@@ -1,7 +1,7 @@
 # D007 - Keep Class Weights As A Calibrated Candidate, Not The Default Baseline
 
 ## Chosen option
-Keep `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_003/result.json` as the canonical default-threshold `Solution C` baseline, and retain `C_REMOTE_A40_010` only as a calibrated-threshold candidate.
+Keep `experiments/runs/C_REMOTE_A40_003/result.json` as the canonical default-threshold `Solution C` baseline, and retain `C_REMOTE_A40_010` only as a calibrated-threshold candidate.
 
 ## Alternatives considered
 - Replace the current baseline with the class-weight branch.

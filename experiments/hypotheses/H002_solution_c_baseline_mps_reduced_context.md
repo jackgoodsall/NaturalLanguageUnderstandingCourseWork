@@ -37,7 +37,7 @@ was still too aggressive for this machine.
 ## Exact Command
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 ln -sf official_coursework/trial_data/ED_trial.csv test.csv
 source .venv/bin/activate
 mkdir -p experiments/runs/C_BASELINE_FULL_MPS_002

@@ -28,7 +28,7 @@ If a non-primary source is ever used, label it explicitly.
 
 Each research question should produce one structured record following:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/research/research_record.schema.json`
+- `research/research_record.schema.json`
 
 Each record must contain:
 

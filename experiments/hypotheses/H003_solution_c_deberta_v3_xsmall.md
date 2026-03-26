@@ -8,7 +8,7 @@
 
 Research record:
 
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/research/briefs/R001_solution_c_smaller_model_selection.md`
+- `research/briefs/R001_solution_c_smaller_model_selection.md`
 
 Primary source rationale:
 

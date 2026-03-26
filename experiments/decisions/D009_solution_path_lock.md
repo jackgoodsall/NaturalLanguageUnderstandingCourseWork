@@ -1,11 +1,11 @@
 # D009 - Lock Current Primary Solution Path
 
 ## Chosen option
-Lock `Solution C` as the current primary coursework path, using `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_003/result.json` as the canonical default-threshold baseline.
+Lock `Solution C` as the current primary coursework path, using `experiments/runs/C_REMOTE_A40_003/result.json` as the canonical default-threshold baseline.
 
 Keep:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_010/result.json` as a calibrated `Solution C` candidate
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001/result.json` as the validated `Solution B` fallback/comparison baseline
+- `experiments/runs/C_REMOTE_A40_010/result.json` as a calibrated `Solution C` candidate
+- `experiments/runs/B_REMOTE_FULL_001/result.json` as the validated `Solution B` fallback/comparison baseline
 
 ## Comparison table
 

@@ -33,7 +33,7 @@ Repeat run for variance check:
 ## Exact Command
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 mkdir -p experiments/runs/C_BASELINE_FULL_MPS_001
 jupyter nbconvert \
@@ -83,7 +83,7 @@ Mandatory:
 4. prediction path works from saved artifact
 
 Quality gate:
-1. metrics must be recorded in `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/run_result.schema.json` format
+1. metrics must be recorded in `experiments/run_result.schema.json` format
 
 Comparison gate:
 1. compare against `OFFICIAL_BERT_DEV_001`

@@ -1,7 +1,7 @@
 # D008 - Keep Solution C As Current Frontrunner Over Solution B
 
 ## Chosen option
-Keep `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_003/result.json` as the current technical frontrunner and retain `B_REMOTE_FULL_001` as the validated `Solution B` comparison baseline.
+Keep `experiments/runs/C_REMOTE_A40_003/result.json` as the current technical frontrunner and retain `B_REMOTE_FULL_001` as the validated `Solution B` comparison baseline.
 
 ## Alternatives considered
 - Promote `Solution B` as the current frontrunner.

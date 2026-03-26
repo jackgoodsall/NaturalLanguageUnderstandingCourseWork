@@ -1,15 +1,15 @@
 # D010 - Promote Transfer-Ensemble Solution C As The Primary Path
 
 ## Chosen option
-Promote `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json` to the primary `Solution C` path and current technical frontrunner for submission work.
+Promote `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json` to the primary `Solution C` path and current technical frontrunner for submission work.
 
 Keep:
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_018_transfer_3ep/result.json` as the strongest single-seed transfer baseline
-- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001/result.json` as the validated `Solution B` fallback
+- `experiments/runs/C_REMOTE_A40_018_transfer_3ep/result.json` as the strongest single-seed transfer baseline
+- `experiments/runs/B_REMOTE_FULL_001/result.json` as the validated `Solution B` fallback
 
 ## Alternatives considered
-- Keep `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_003/result.json` as the primary path.
-- Promote `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_018_transfer_3ep/result.json` and avoid ensemble complexity.
+- Keep `experiments/runs/C_REMOTE_A40_003/result.json` as the primary path.
+- Promote `experiments/runs/C_REMOTE_A40_018_transfer_3ep/result.json` and avoid ensemble complexity.
 - Reopen broad single-model tuning instead of locking the stronger transfer path.
 
 ## Trade-offs

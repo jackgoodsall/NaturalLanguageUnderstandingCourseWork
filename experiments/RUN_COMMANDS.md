@@ -3,7 +3,7 @@
 All commands assume the working directory is:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 ```
 
@@ -12,7 +12,7 @@ source .venv/bin/activate
 Use this to refresh the official scorer metrics:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/official_coursework/nlu_bundle-feature-unified-local-scorer
+cd /path/to/NaturalLanguageUnderstandingCourseWork/official_coursework/nlu_bundle-feature-unified-local-scorer
 python3 -m unittest tests.test_local_scorer -v
 python3 local_scorer/main.py --task ed
 ```
@@ -22,7 +22,7 @@ python3 local_scorer/main.py --task ed
 Use this only to verify the pipeline shape on a small sample:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 python -m src.solution_b.train \
   --train training_data/train.csv \
@@ -38,7 +38,7 @@ python -m src.solution_b.train \
 ## 3. Solution B Full Train
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 python -m src.solution_b.train \
   --train training_data/train.csv \
@@ -58,7 +58,7 @@ python -m src.solution_b.train \
 ## 4. Solution B Evaluate
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 python -m src.solution_b.evaluate \
   --checkpoints outputs/solution_b_full_001/best_model.pt \
@@ -73,7 +73,7 @@ python -m src.solution_b.evaluate \
 Canonical measurement command for the single-model transformer baseline:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 mkdir -p experiments/runs/C_BASELINE_FULL_MPS_001
 jupyter nbconvert \
@@ -89,7 +89,7 @@ jupyter nbconvert \
 Use this when you need a cheap preflight before the full notebook run:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 source .venv/bin/activate
 python - <<'PY'
 from pathlib import Path
@@ -115,8 +115,8 @@ jupyter nbconvert \
 
 After every full run:
 
-1. copy the relevant metrics into a new JSON file that matches `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/run_result.schema.json`
-2. add or update the corresponding row in `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/baseline_ledger.csv`
+1. copy the relevant metrics into a new JSON file that matches `experiments/run_result.schema.json`
+2. add or update the corresponding row in `experiments/baseline_ledger.csv`
 3. record whether the run is:
    - `official_verified`
    - `local_verified`
@@ -127,7 +127,7 @@ After every full run:
 After updating the notebook model name to `microsoft/deberta-v3-xsmall`, run:
 
 ```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
+cd /path/to/NaturalLanguageUnderstandingCourseWork
 ln -sf official_coursework/trial_data/ED_trial.csv test.csv
 source .venv/bin/activate
 mkdir -p experiments/runs/C_XSMALL_FULL_MPS_003
