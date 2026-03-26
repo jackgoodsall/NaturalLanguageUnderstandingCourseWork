@@ -1,0 +1,45 @@
+{
+  "run_id": "SOLO_C2_ENSEMBLE_001",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_transfer_fp32_3seed_ensemble",
+  "status": "completed",
+  "runtime": {
+    "platform": "runpod",
+    "workspace": "/workspace/NLU-solo-run-002",
+    "seed_outputs": [
+      "outputs/solution_c_c2_seed42/best_model",
+      "outputs/solution_c_c2_seed52/best_model",
+      "outputs/solution_c_c2_seed62/best_model"
+    ]
+  },
+  "metrics_at_threshold_0_5": {
+    "accuracy": 0.8925075936550793,
+    "macro_f1": 0.868570782965524,
+    "binary_f1": 0.8124816014130115,
+    "matthews_corrcoef": 0.7381267442050312
+  },
+  "threshold_probe": {
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.6,
+        "accuracy": 0.8948700641241984,
+        "prediction_rate_positive": 0.27624029699628755
+      },
+      "macro_f1": {
+        "threshold": 0.6,
+        "macro_f1": 0.868617015313907,
+        "prediction_rate_positive": 0.27624029699628755
+      },
+      "binary_f1": {
+        "threshold": 0.5,
+        "binary_f1": 0.8124816014130115,
+        "prediction_rate_positive": 0.29649004387445155
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.5,
+        "matthews_corrcoef": 0.7381267442050312,
+        "prediction_rate_positive": 0.29649004387445155
+      }
+    }
+  }
+}
