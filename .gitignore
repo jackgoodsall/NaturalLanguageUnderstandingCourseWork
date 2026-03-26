@@ -1,0 +1,8 @@
+.venv/
+.venv-py314-failed/
+__pycache__/
+*.py[cod]
+.DS_Store
+outputs/
+official_coursework/predictions.csv
+.ipynb_checkpoints/
