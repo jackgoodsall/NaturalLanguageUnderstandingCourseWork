@@ -1,0 +1,43 @@
+{
+  "run_id": "SOLO_C0_FULL_002",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_fp32_full",
+  "status": "completed_with_salvaged_checkpoint",
+  "runtime": {
+    "platform": "runpod",
+    "workspace": "/workspace/NLU-solo-run-002",
+    "output_dir": "outputs/solution_c_c0_full_002",
+    "validated_checkpoint": "outputs/solution_c_c0_full_002/trainer/checkpoint-4035"
+  },
+  "training_note": "Training completed through epoch 3 and produced a valid checkpoint-4035, but the final optimizer-checkpoint write failed due pod disk pressure. The model checkpoint itself was evaluated directly and accepted as the C0 incumbent.",
+  "metrics_at_threshold_0_5": {
+    "accuracy": 0.8042524468444144,
+    "macro_f1": 0.7809180702371665,
+    "binary_f1": 0.7094188376753507,
+    "matthews_corrcoef": 0.589836230276574
+  },
+  "threshold_probe": {
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.85,
+        "accuracy": 0.8361457981775228,
+        "prediction_rate_positive": 0.22021599730003374
+      },
+      "macro_f1": {
+        "threshold": 0.75,
+        "macro_f1": 0.7948791046901518,
+        "prediction_rate_positive": 0.293452581842727
+      },
+      "binary_f1": {
+        "threshold": 0.6,
+        "binary_f1": 0.7159841479524438,
+        "prediction_rate_positive": 0.36196422544718193
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.6,
+        "matthews_corrcoef": 0.597581795568409,
+        "prediction_rate_positive": 0.36196422544718193
+      }
+    }
+  }
+}
