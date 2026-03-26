@@ -3,6 +3,21 @@
 Track: `Evidence Detection`  
 Solution pairing: `B + C`
 
+## Review Start Here
+
+If you are reviewing the branch and want the fastest path through the repo, start with:
+
+1. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/REVIEW_GUIDE.md`
+2. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/decisions/D010_solution_c_transfer_ensemble.md`
+3. `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/baseline_ledger.csv`
+
+Current lead paths:
+
+- `Solution B` competitive thresholded result:
+  - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+- `Solution C` primary result:
+  - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+
 This repository contains two coursework solutions for the COMP34812 NLU coursework:
 
 1. `Solution B`: ESIM-style BiLSTM with pretrained FastText embeddings in `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/src/solution_b`
@@ -47,6 +62,17 @@ Official trial files and the local scorer live in:
 
 ## Solution B
 
+Primary code lives in:
+
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/src/solution_b`
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_b_development.ipynb`
+
+Current validated baseline:
+
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001/result.json`
+- best thresholded comparison:
+  - `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+
 Train:
 
 ```bash
@@ -85,6 +111,20 @@ Notes:
 
 ## Solution C
 
+Primary notebooks live at the repo root:
+
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_baseline_development.ipynb`
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_seed_ensemble_development.ipynb`
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/solution_c_5_fold_ensemble_development.ipynb`
+
+Current strongest validated run:
+
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+
+Current promotion decision:
+
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/decisions/D010_solution_c_transfer_ensemble.md`
+
 Run the notebooks from the project root with the `NLU CourseWork` kernel.
 
 The transformer notebooks now:
@@ -109,6 +149,14 @@ cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/offi
 python3 -m unittest tests.test_local_scorer -v
 python3 local_scorer/main.py --task ed
 ```
+
+## Experiment Record
+
+Run history, decision records, and audit tooling live under:
+
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/runs`
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/decisions`
+- `/Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork/experiments/debug`
 
 ## Current Submission Gaps
 
