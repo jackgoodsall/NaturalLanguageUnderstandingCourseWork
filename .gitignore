@@ -1,0 +1,17 @@
+.venv/
+.venv-py314-failed/
+__pycache__/
+*.py[cod]
+.DS_Store
+__MACOSX/
+.tmp_verify/
+.verify_*.ipynb
+outputs/
+.ipynb_checkpoints/
+official_coursework/predictions.csv
+experiments/runs/**/stdout.log
+experiments/runs/**/exit_code.txt
+experiments/runs/**/runtime_seconds.txt
+experiments/runs/**/dev_predictions.csv
+experiments/runs/**/executed_*.ipynb
+experiments/runs/**/*.pt

@@ -1,0 +1,66 @@
+{
+  "run_id": "C_BASELINE_FULL_MPS_002",
+  "timestamp_utc": "2026-03-18T17:02:57Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_mps_reduced_context",
+  "status": "failed",
+  "evidence_level": "local_verified",
+  "hypothesis_id": "H002",
+  "objective": "Retry the full-data Solution C baseline on mps using reduced max length, micro-batch size 1, and gradient checkpointing.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "auto",
+    "resolved": "mps"
+  },
+  "commands": {
+    "train": "jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_BASELINE_FULL_MPS_002 --ExecutePreprocessor.timeout=0",
+    "evaluate": "",
+    "infer": "",
+    "score": ""
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline/best_model",
+    "prediction_csv": "predictions.csv",
+    "executed_notebook": "experiments/runs/C_BASELINE_FULL_MPS_002/executed_solution_c_baseline.ipynb",
+    "metrics_json": "experiments/runs/C_BASELINE_FULL_MPS_002/result.json",
+    "log_path": "experiments/runs/C_BASELINE_FULL_MPS_002/stdout.log"
+  },
+  "metrics": {
+    "accuracy": null,
+    "macro_precision": null,
+    "macro_recall": null,
+    "macro_f1": null,
+    "weighted_macro_f1": null,
+    "binary_precision": null,
+    "binary_recall": null,
+    "binary_f1": null,
+    "matthews_corrcoef": null,
+    "threshold": null,
+    "train_runtime_seconds": 34,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 1
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_BASELINE_FULL_MPS_001",
+    "delta_accuracy": null,
+    "delta_macro_f1": null,
+    "delta_matthews_corrcoef": null
+  },
+  "acceptance": {
+    "completed_end_to_end": false,
+    "artifact_reload_ok": false,
+    "beats_reference": false
+  },
+  "notes": "Full notebook run failed after 34 seconds with MPS out-of-memory during backward pass. Reduced context and gradient checkpointing lowered the failing allocation request but still produced no checkpoint or predictions."
+}

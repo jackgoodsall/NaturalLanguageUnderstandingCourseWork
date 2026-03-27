@@ -1,0 +1,71 @@
+{
+  "run_id": "C_REMOTE_A40_008",
+  "timestamp_utc": "2026-03-23T22:05:00Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_maxlen192_5ep",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Test whether reducing max_length to 192 improves the current remote A40 Solution C baseline while holding scheduler, learning rate, epoch budget, and best-checkpoint selection constant.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "cuda",
+    "resolved": "cuda"
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_maxlen192/checkpoint-5380",
+    "best_model_dir": "outputs/deberta_v3_baseline_plain_trainer_5ep_maxlen192/best_model",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_008/result.json",
+    "remote_probe_json": "experiments/runs/C_REMOTE_A40_008_probe/result.json",
+    "remote_audit_json": "experiments/runs/C_REMOTE_A40_008_audit/result.json"
+  },
+  "metrics": {
+    "accuracy": 0.8336145798177523,
+    "macro_precision": 0.791990918409059,
+    "macro_recall": 0.8268146147980379,
+    "macro_f1": 0.8047648184026619,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.6628486055776892,
+    "binary_recall": 0.8115853658536586,
+    "binary_f1": 0.7297149122807017,
+    "matthews_corrcoef": 0.6178248927467456,
+    "threshold": 0.5,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "checkpoint_analysis": {
+    "best_epoch": 4.0,
+    "best_metric_name": "eval_macro_f1",
+    "best_metric_value": 0.8047544489775658,
+    "canonical_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_baseline_plain_trainer_5ep_maxlen192/checkpoint-5380",
+    "latest_epoch": 5.0,
+    "latest_metric_name": "eval_macro_f1",
+    "latest_metric_value": 0.7888872942539196,
+    "regressed_after_best": true,
+    "checkpoint_count": 2
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.0062436719541004715,
+    "delta_macro_f1": -0.003641945205765662,
+    "delta_binary_f1": -0.0010652295632699316,
+    "delta_matthews_corrcoef": -0.002802492629544018
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false
+  },
+  "notes": "Single-variable max_length=192 run completed cleanly on the remote A40 after clearing obsolete pod outputs. Best checkpoint remained epoch 4 / checkpoint-5380, but the direct evaluation probe regressed versus C_REMOTE_A40_003 on accuracy, macro_f1, binary_f1, and MCC."
+}

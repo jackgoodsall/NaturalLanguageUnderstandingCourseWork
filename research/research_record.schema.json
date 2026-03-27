@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResearchRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "research_id",
+    "question",
+    "created_utc",
+    "status",
+    "sources",
+    "local_evidence",
+    "recommendation",
+    "invalidation_condition",
+    "next_hypothesis_id"
+  ],
+  "properties": {
+    "research_id": {
+      "type": "string"
+    },
+    "question": {
+      "type": "string"
+    },
+    "created_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "superseded",
+        "complete"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "source_type",
+          "authority",
+          "title",
+          "url",
+          "accessed_utc",
+          "key_claim",
+          "action_implication",
+          "confidence"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "official_doc",
+              "official_model_card",
+              "official_repo",
+              "paper",
+              "secondary"
+            ]
+          },
+          "authority": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "accessed_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "key_claim": {
+            "type": "string"
+          },
+          "action_implication": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "local_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendation": {
+      "type": "string"
+    },
+    "rejected_alternatives": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "invalidation_condition": {
+      "type": "string"
+    },
+    "next_hypothesis_id": {
+      "type": "string"
+    }
+  }
+}

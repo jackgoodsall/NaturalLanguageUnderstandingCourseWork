@@ -1,0 +1,303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceDetectionRunResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "timestamp_utc",
+    "branch",
+    "task",
+    "track",
+    "solution_family",
+    "variant",
+    "status",
+    "evidence_level",
+    "device",
+    "commands",
+    "artifacts",
+    "metrics"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_\\-]+$"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "commit_sha": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string",
+      "const": "evidence_detection"
+    },
+    "track": {
+      "type": "string",
+      "const": "ED"
+    },
+    "solution_family": {
+      "type": "string",
+      "enum": [
+        "official_baseline",
+        "solution_b",
+        "solution_c",
+        "ensemble"
+      ]
+    },
+    "variant": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "evidence_level": {
+      "type": "string",
+      "enum": [
+        "official_verified",
+        "local_verified",
+        "doc_claimed",
+        "not_run"
+      ]
+    },
+    "hypothesis_id": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "train_path": {
+          "type": "string"
+        },
+        "dev_path": {
+          "type": "string"
+        },
+        "train_rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dev_rows": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested",
+        "resolved"
+      ],
+      "properties": {
+        "requested": {
+          "type": "string"
+        },
+        "resolved": {
+          "type": "string"
+        }
+      }
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "train": {
+          "type": "string"
+        },
+        "evaluate": {
+          "type": "string"
+        },
+        "infer": {
+          "type": "string"
+        },
+        "score": {
+          "type": "string"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_dir": {
+          "type": "string"
+        },
+        "prediction_csv": {
+          "type": "string"
+        },
+        "executed_notebook": {
+          "type": "string"
+        },
+        "metrics_json": {
+          "type": "string"
+        },
+        "log_path": {
+          "type": "string"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oom_count"
+      ],
+      "properties": {
+        "accuracy": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "macro_precision": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "macro_recall": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "macro_f1": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "weighted_macro_f1": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "binary_precision": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "binary_recall": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "binary_f1": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "matthews_corrcoef": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "threshold": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "train_runtime_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "eval_runtime_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "infer_runtime_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "peak_memory_gb": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "oom_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "reference_comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reference_run_id": {
+          "type": "string"
+        },
+        "delta_accuracy": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "delta_macro_f1": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "delta_matthews_corrcoef": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "completed_end_to_end": {
+          "type": "boolean"
+        },
+        "artifact_reload_ok": {
+          "type": "boolean"
+        },
+        "beats_reference": {
+          "type": "boolean"
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

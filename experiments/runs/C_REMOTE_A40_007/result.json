@@ -1,0 +1,68 @@
+{
+  "run_id": "C_REMOTE_A40_007",
+  "timestamp_utc": "2026-03-23T20:18:41Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_warmup10_5ep",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Test whether increasing warmup_ratio to 0.10 improves the current remote A40 Solution C baseline while holding scheduler, learning rate, epoch budget, and checkpoint selection constant.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "cuda",
+    "resolved": "cuda"
+  },
+  "commands": {
+    "train": "SOLUTION_C_EPOCHS=5 SOLUTION_C_LR=2e-5 SOLUTION_C_LR_SCHEDULER=linear SOLUTION_C_WARMUP_RATIO=0.10 SOLUTION_C_OUT_DIR=./outputs/deberta_v3_baseline_plain_trainer_warmup10_5ep SOLUTION_C_SAVE_DIR=./outputs/deberta_v3_baseline_plain_trainer_warmup10_5ep/best_model jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_REMOTE_A40_007 --ExecutePreprocessor.timeout=0",
+    "audit": "python experiments/debug/solution_c_artifact_audit.py --output-root outputs/deberta_v3_baseline_plain_trainer_warmup10_5ep --json-out experiments/runs/C_REMOTE_A40_007_audit/result.json",
+    "probe": "python experiments/debug/solution_c_eval_probe.py --model-dir outputs/deberta_v3_baseline_plain_trainer_warmup10_5ep/best_model --data-csv training_data/dev.csv --batch-size 32 --max-length 256 --device cuda --json-out experiments/runs/C_REMOTE_A40_007_probe/result.json --predictions-out experiments/runs/C_REMOTE_A40_007_probe/dev_predictions.csv"
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer_warmup10_5ep/checkpoint-5380",
+    "best_model_dir": "outputs/deberta_v3_baseline_plain_trainer_warmup10_5ep/best_model",
+    "prediction_csv": "experiments/runs/C_REMOTE_A40_007_probe/dev_predictions.csv",
+    "executed_notebook": "experiments/runs/C_REMOTE_A40_007/executed_solution_c_baseline.ipynb",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_007/result.json",
+    "log_path": "experiments/runs/C_REMOTE_A40_007/stdout.log",
+    "audit_json": "experiments/runs/C_REMOTE_A40_007_audit/result.json",
+    "probe_json": "experiments/runs/C_REMOTE_A40_007_probe/result.json"
+  },
+  "metrics": {
+    "accuracy": 0.8395207559905501,
+    "macro_precision": 0.7979790224472976,
+    "macro_recall": 0.8111346641931187,
+    "macro_f1": 0.8039915001234526,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.6954055587067498,
+    "binary_recall": 0.7475609756097561,
+    "binary_f1": 0.7205406993828974,
+    "matthews_corrcoef": 0.6089716022467181,
+    "threshold": null,
+    "train_runtime_seconds": null,
+    "eval_runtime_seconds": 13.0777,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "reference_comparison": {
+    "reference_run_id": "C_REMOTE_A40_003",
+    "delta_accuracy": -0.0003374957813027102,
+    "delta_macro_f1": -0.004415263484975007,
+    "delta_binary_f1": -0.010239442461074222,
+    "delta_matthews_corrcoef": -0.011655783129571495
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": false
+  },
+  "notes": "Single-variable warmup_ratio=0.10 run completed cleanly on the remote A40. Artifact audit still selected epoch 4 / checkpoint-5380 as best, but the direct checkpoint probe regressed versus C_REMOTE_A40_003 on accuracy, macro_f1, binary_f1, and MCC."
+}

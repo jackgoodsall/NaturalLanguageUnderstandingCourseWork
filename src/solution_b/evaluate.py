@@ -26,6 +26,7 @@ from torch.utils.data import DataLoader
 
 from src.solution_b.data import ClaimEvidenceDataset, collate_fn, load_and_preprocess, load_embeddings
 from src.solution_b.models import EnsembleModel, build_model
+from src.solution_b.runtime import resolve_device
 
 
 
@@ -38,7 +39,7 @@ def get_probs(model: torch.nn.Module, dataloader, device: str) -> np.ndarray:
     Args:
         model:      trained model (single or ensemble).
         dataloader: DataLoader over the evaluation dataset.
-        device:     'cuda' or 'cpu'.
+        device:     accelerator target ('cuda', 'mps', or 'cpu').
 
     Returns:
         1-D numpy array of probabilities, one per sample.
@@ -175,12 +176,15 @@ def parse_args():
                         help="Optional path to save evaluation results as JSON.")
     parser.add_argument("--submission", default=None,
                         help="Path to save scorer-compatible submission file (one pred per line).")
+    parser.add_argument("--device",    default="auto",
+                        choices=["auto", "cpu", "cuda", "mps"])
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
+    print(f"Using device: {device}")
     # Infer embedding dimension from model name
     dim = int(args.embeddings.split("-")[-1])
 

@@ -1,0 +1,68 @@
+{
+  "run_id": "C_REMOTE_A40_002",
+  "timestamp_utc": "2026-03-23T14:05:18Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_base_single_model_remote_a40_plain_trainer",
+  "status": "completed",
+  "evidence_level": "local_verified",
+  "objective": "Validate the repaired Solution C baseline on remote A40 hardware, confirm clean checkpoint behavior, and record a reproducible dev-set benchmark.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "auto",
+    "resolved": "cuda"
+  },
+  "commands": {
+    "train": "ssh root@194.68.245.210 -p 22141 -i ~/.ssh/id_ed25519 'cd /workspace/NaturalLanguageUnderstandingCourseWork && ln -sf official_coursework/trial_data/ED_trial.csv test.csv && source .venv/bin/activate && mkdir -p experiments/runs/C_REMOTE_A40_002 && jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_REMOTE_A40_002 --ExecutePreprocessor.timeout=0 2>&1 | tee experiments/runs/C_REMOTE_A40_002/stdout.log'",
+    "evaluate": "ssh root@194.68.245.210 -p 22141 -i ~/.ssh/id_ed25519 'cd /workspace/NaturalLanguageUnderstandingCourseWork && source .venv/bin/activate && python experiments/debug/eval_probe_solution_c.py --model-dir outputs/deberta_v3_baseline_plain_trainer/best_model --dev training_data/dev.csv --output experiments/runs/C_REMOTE_A40_002/eval_probe.json'",
+    "infer": "",
+    "score": ""
+  },
+  "artifacts": {
+    "checkpoint_dir": "outputs/deberta_v3_baseline_plain_trainer/best_model",
+    "prediction_csv": "experiments/runs/C_REMOTE_A40_002/dev_predictions.csv",
+    "executed_notebook": "experiments/runs/C_REMOTE_A40_002/executed_solution_c_baseline.ipynb",
+    "metrics_json": "experiments/runs/C_REMOTE_A40_002/result.json",
+    "log_path": "experiments/runs/C_REMOTE_A40_002/stdout.log",
+    "artifact_audit": "experiments/runs/C_REMOTE_A40_002/artifact_audit.json",
+    "eval_probe": "experiments/runs/C_REMOTE_A40_002/eval_probe.json",
+    "env_probe": "experiments/runs/C_REMOTE_A40_002/env_probe.json"
+  },
+  "metrics": {
+    "accuracy": 0.8083023962200473,
+    "macro_precision": 0.7616331655911805,
+    "macro_recall": 0.7829650990746958,
+    "macro_f1": 0.7703900799931458,
+    "weighted_macro_f1": null,
+    "binary_precision": 0.634185303514377,
+    "binary_recall": 0.7262195121951219,
+    "binary_f1": 0.6770892552586697,
+    "matthews_corrcoef": 0.5441803179929782,
+    "threshold": null,
+    "train_runtime_seconds": 572.8009,
+    "eval_runtime_seconds": 13.1674,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": null,
+    "oom_count": 0
+  },
+  "reference_comparison": {
+    "reference_run_id": "OFFICIAL_LSTM_DEV_001",
+    "delta_accuracy": 0.0025313962200472773,
+    "delta_macro_f1": 0.062042079993145816,
+    "delta_matthews_corrcoef": 0.07673931799297817
+  },
+  "acceptance": {
+    "completed_end_to_end": true,
+    "artifact_reload_ok": true,
+    "beats_reference": true
+  },
+  "notes": "Remote A40 plain-Trainer run completed cleanly. Direct checkpoint evaluation from outputs/deberta_v3_baseline_plain_trainer/best_model reproduced the epoch-3 notebook metrics, produced a non-degenerate prediction distribution, and beat the official ED LSTM baseline on accuracy, macro_f1, and MCC. The pod environment still shows a slow transformers import in env_probe.json, but it did not block the validated run."
+}

@@ -1,0 +1,57 @@
+{
+  "run_id": "C_XSMALL_FULL_MPS_003",
+  "timestamp_utc": "2026-03-18T17:31:00Z",
+  "branch": "codex/course-material-import",
+  "commit_sha": "773d2bd11b390311cf938f8ee22806f9392f8cb4",
+  "task": "evidence_detection",
+  "track": "ED",
+  "solution_family": "solution_c",
+  "variant": "deberta_v3_xsmall_single_model",
+  "status": "failed",
+  "evidence_level": "local_verified",
+  "hypothesis_id": "H003",
+  "objective": "Replace deberta-v3-base with deberta-v3-xsmall and test whether the full notebook can complete on MPS-constrained hardware.",
+  "data": {
+    "train_path": "training_data/train.csv",
+    "dev_path": "training_data/dev.csv",
+    "train_rows": 21508,
+    "dev_rows": 5926
+  },
+  "device": {
+    "requested": "auto",
+    "resolved": "mps"
+  },
+  "commands": {
+    "train": "jupyter nbconvert --to notebook --execute solution_c_baseline_development.ipynb --output executed_solution_c_baseline.ipynb --output-dir experiments/runs/C_XSMALL_FULL_MPS_003 --ExecutePreprocessor.timeout=0"
+  },
+  "artifacts": {
+    "run_dir": "experiments/runs/C_XSMALL_FULL_MPS_003",
+    "stdout_log": "experiments/runs/C_XSMALL_FULL_MPS_003/stdout.log",
+    "executed_notebook": null,
+    "checkpoint_dir": null,
+    "predictions_csv": null
+  },
+  "metrics": {
+    "accuracy": null,
+    "macro_precision": null,
+    "macro_recall": null,
+    "macro_f1": null,
+    "weighted_macro_f1": null,
+    "binary_precision": null,
+    "binary_recall": null,
+    "binary_f1": null,
+    "matthews_corrcoef": null,
+    "threshold": null,
+    "train_runtime_seconds": 220,
+    "eval_runtime_seconds": null,
+    "infer_runtime_seconds": null,
+    "peak_memory_gb": 22.64,
+    "oom_count": 1
+  },
+  "reference_comparison": {
+    "reference_run_id": "OFFICIAL_LSTM_DEV_001",
+    "reference_metric": "macro_f1",
+    "reference_value": 0.708348
+  },
+  "notes": "Run survived materially longer than H001/H002 but still failed with MPS out-of-memory during Trainer._run_epoch. No checkpoint, executed notebook, or prediction CSV was produced. Error reported MPS allocated 1.12 GiB, other allocations 21.54 GiB, max allowed 22.64 GiB."
+}

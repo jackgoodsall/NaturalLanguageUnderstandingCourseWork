@@ -1,0 +1,342 @@
+{
+  "best_model_config": {
+    "architectures": [
+      "DebertaV2ForSequenceClassification"
+    ],
+    "dtype": "float32",
+    "id2label": {
+      "0": "not_relevant",
+      "1": "relevant"
+    },
+    "label2id": {
+      "not_relevant": 0,
+      "relevant": 1
+    },
+    "num_labels": null
+  },
+  "best_model_dir_exists": true,
+  "checkpoint_analysis": {
+    "best_epoch": 4.0,
+    "best_metric_name": "eval_macro_f1",
+    "best_metric_value": 0.807521457455499,
+    "canonical_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+    "eval_events": [
+      {
+        "epoch": 1.0,
+        "eval_accuracy": 0.778265271684104,
+        "eval_f1": 0.67919921875,
+        "eval_loss": 0.4457630515098572,
+        "eval_macro_f1": 0.7548909966880479,
+        "eval_macro_precision": 0.7473050765519248,
+        "eval_macro_recall": 0.7998436486348064,
+        "eval_mcc": 0.5446204420667269,
+        "eval_precision": 0.5663680781758957,
+        "eval_recall": 0.848170731707317,
+        "eval_runtime": 13.043,
+        "eval_samples_per_second": 454.343,
+        "eval_steps_per_second": 14.261,
+        "step": 1345
+      },
+      {
+        "epoch": 2.0,
+        "eval_accuracy": 0.7868714141073236,
+        "eval_f1": 0.6992140985949036,
+        "eval_loss": 0.40301164984703064,
+        "eval_macro_f1": 0.7670903891641707,
+        "eval_macro_precision": 0.7612887677365989,
+        "eval_macro_recall": 0.8202861272663123,
+        "eval_mcc": 0.578574688407788,
+        "eval_precision": 0.573661586557249,
+        "eval_recall": 0.8951219512195122,
+        "eval_runtime": 13.1359,
+        "eval_samples_per_second": 451.129,
+        "eval_steps_per_second": 14.16,
+        "step": 2690
+      },
+      {
+        "epoch": 3.0,
+        "eval_accuracy": 0.7840026999662504,
+        "eval_f1": 0.7006548175865295,
+        "eval_loss": 0.48765838146209717,
+        "eval_macro_f1": 0.76585011206676,
+        "eval_macro_precision": 0.7625620932517262,
+        "eval_macro_recall": 0.8239495009275805,
+        "eval_mcc": 0.5832901818868462,
+        "eval_precision": 0.5682852807283764,
+        "eval_recall": 0.9134146341463415,
+        "eval_runtime": 13.0339,
+        "eval_samples_per_second": 454.659,
+        "eval_steps_per_second": 14.27,
+        "step": 4035
+      },
+      {
+        "epoch": 4.0,
+        "eval_accuracy": 0.8363145460681741,
+        "eval_f1": 0.7330764997248211,
+        "eval_loss": 0.4451952576637268,
+        "eval_macro_f1": 0.807521457455499,
+        "eval_macro_precision": 0.7948361870963858,
+        "eval_macro_recall": 0.8288693761879289,
+        "eval_mcc": 0.6227763416444652,
+        "eval_precision": 0.6680040120361084,
+        "eval_recall": 0.8121951219512196,
+        "eval_runtime": 13.0594,
+        "eval_samples_per_second": 453.773,
+        "eval_steps_per_second": 14.243,
+        "step": 5380
+      },
+      {
+        "epoch": 5.0,
+        "eval_accuracy": 0.8062774215322308,
+        "eval_f1": 0.7149950347567031,
+        "eval_loss": 0.5493393540382385,
+        "eval_macro_f1": 0.7841335091983925,
+        "eval_macro_precision": 0.7732429814419752,
+        "eval_macro_recall": 0.828431763085713,
+        "eval_mcc": 0.5991382950397502,
+        "eval_precision": 0.6030150753768844,
+        "eval_recall": 0.8780487804878049,
+        "eval_runtime": 13.0494,
+        "eval_samples_per_second": 454.121,
+        "eval_steps_per_second": 14.254,
+        "step": 6725
+      }
+    ],
+    "latest_epoch": 5.0,
+    "latest_metric_value": 0.7841335091983925,
+    "regressed_after_best": true,
+    "trainer_state_source": "outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-6725/trainer_state.json"
+  },
+  "checkpoint_best_metrics": [
+    0.807521457455499,
+    0.807521457455499
+  ],
+  "checkpoint_best_model_references": [
+    "./outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+    "./outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380"
+  ],
+  "checkpoint_count": 2,
+  "checkpoint_steps": [
+    5380,
+    6725
+  ],
+  "checkpoints": [
+    {
+      "best_metric": 0.807521457455499,
+      "best_model_checkpoint": "./outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+      "dtype": "float32",
+      "eval_events": [
+        {
+          "epoch": 1.0,
+          "eval_accuracy": 0.778265271684104,
+          "eval_f1": 0.67919921875,
+          "eval_loss": 0.4457630515098572,
+          "eval_macro_f1": 0.7548909966880479,
+          "eval_macro_precision": 0.7473050765519248,
+          "eval_macro_recall": 0.7998436486348064,
+          "eval_mcc": 0.5446204420667269,
+          "eval_precision": 0.5663680781758957,
+          "eval_recall": 0.848170731707317,
+          "eval_runtime": 13.043,
+          "eval_samples_per_second": 454.343,
+          "eval_steps_per_second": 14.261,
+          "step": 1345
+        },
+        {
+          "epoch": 2.0,
+          "eval_accuracy": 0.7868714141073236,
+          "eval_f1": 0.6992140985949036,
+          "eval_loss": 0.40301164984703064,
+          "eval_macro_f1": 0.7670903891641707,
+          "eval_macro_precision": 0.7612887677365989,
+          "eval_macro_recall": 0.8202861272663123,
+          "eval_mcc": 0.578574688407788,
+          "eval_precision": 0.573661586557249,
+          "eval_recall": 0.8951219512195122,
+          "eval_runtime": 13.1359,
+          "eval_samples_per_second": 451.129,
+          "eval_steps_per_second": 14.16,
+          "step": 2690
+        },
+        {
+          "epoch": 3.0,
+          "eval_accuracy": 0.7840026999662504,
+          "eval_f1": 0.7006548175865295,
+          "eval_loss": 0.48765838146209717,
+          "eval_macro_f1": 0.76585011206676,
+          "eval_macro_precision": 0.7625620932517262,
+          "eval_macro_recall": 0.8239495009275805,
+          "eval_mcc": 0.5832901818868462,
+          "eval_precision": 0.5682852807283764,
+          "eval_recall": 0.9134146341463415,
+          "eval_runtime": 13.0339,
+          "eval_samples_per_second": 454.659,
+          "eval_steps_per_second": 14.27,
+          "step": 4035
+        },
+        {
+          "epoch": 4.0,
+          "eval_accuracy": 0.8363145460681741,
+          "eval_f1": 0.7330764997248211,
+          "eval_loss": 0.4451952576637268,
+          "eval_macro_f1": 0.807521457455499,
+          "eval_macro_precision": 0.7948361870963858,
+          "eval_macro_recall": 0.8288693761879289,
+          "eval_mcc": 0.6227763416444652,
+          "eval_precision": 0.6680040120361084,
+          "eval_recall": 0.8121951219512196,
+          "eval_runtime": 13.0594,
+          "eval_samples_per_second": 453.773,
+          "eval_steps_per_second": 14.243,
+          "step": 5380
+        }
+      ],
+      "exists": true,
+      "num_eval_events": 4,
+      "num_labels": null,
+      "path": "outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+      "step": 5380
+    },
+    {
+      "best_metric": 0.807521457455499,
+      "best_model_checkpoint": "./outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-5380",
+      "dtype": "float32",
+      "eval_events": [
+        {
+          "epoch": 1.0,
+          "eval_accuracy": 0.778265271684104,
+          "eval_f1": 0.67919921875,
+          "eval_loss": 0.4457630515098572,
+          "eval_macro_f1": 0.7548909966880479,
+          "eval_macro_precision": 0.7473050765519248,
+          "eval_macro_recall": 0.7998436486348064,
+          "eval_mcc": 0.5446204420667269,
+          "eval_precision": 0.5663680781758957,
+          "eval_recall": 0.848170731707317,
+          "eval_runtime": 13.043,
+          "eval_samples_per_second": 454.343,
+          "eval_steps_per_second": 14.261,
+          "step": 1345
+        },
+        {
+          "epoch": 2.0,
+          "eval_accuracy": 0.7868714141073236,
+          "eval_f1": 0.6992140985949036,
+          "eval_loss": 0.40301164984703064,
+          "eval_macro_f1": 0.7670903891641707,
+          "eval_macro_precision": 0.7612887677365989,
+          "eval_macro_recall": 0.8202861272663123,
+          "eval_mcc": 0.578574688407788,
+          "eval_precision": 0.573661586557249,
+          "eval_recall": 0.8951219512195122,
+          "eval_runtime": 13.1359,
+          "eval_samples_per_second": 451.129,
+          "eval_steps_per_second": 14.16,
+          "step": 2690
+        },
+        {
+          "epoch": 3.0,
+          "eval_accuracy": 0.7840026999662504,
+          "eval_f1": 0.7006548175865295,
+          "eval_loss": 0.48765838146209717,
+          "eval_macro_f1": 0.76585011206676,
+          "eval_macro_precision": 0.7625620932517262,
+          "eval_macro_recall": 0.8239495009275805,
+          "eval_mcc": 0.5832901818868462,
+          "eval_precision": 0.5682852807283764,
+          "eval_recall": 0.9134146341463415,
+          "eval_runtime": 13.0339,
+          "eval_samples_per_second": 454.659,
+          "eval_steps_per_second": 14.27,
+          "step": 4035
+        },
+        {
+          "epoch": 4.0,
+          "eval_accuracy": 0.8363145460681741,
+          "eval_f1": 0.7330764997248211,
+          "eval_loss": 0.4451952576637268,
+          "eval_macro_f1": 0.807521457455499,
+          "eval_macro_precision": 0.7948361870963858,
+          "eval_macro_recall": 0.8288693761879289,
+          "eval_mcc": 0.6227763416444652,
+          "eval_precision": 0.6680040120361084,
+          "eval_recall": 0.8121951219512196,
+          "eval_runtime": 13.0594,
+          "eval_samples_per_second": 453.773,
+          "eval_steps_per_second": 14.243,
+          "step": 5380
+        },
+        {
+          "epoch": 5.0,
+          "eval_accuracy": 0.8062774215322308,
+          "eval_f1": 0.7149950347567031,
+          "eval_loss": 0.5493393540382385,
+          "eval_macro_f1": 0.7841335091983925,
+          "eval_macro_precision": 0.7732429814419752,
+          "eval_macro_recall": 0.828431763085713,
+          "eval_mcc": 0.5991382950397502,
+          "eval_precision": 0.6030150753768844,
+          "eval_recall": 0.8780487804878049,
+          "eval_runtime": 13.0494,
+          "eval_samples_per_second": 454.121,
+          "eval_steps_per_second": 14.254,
+          "step": 6725
+        }
+      ],
+      "exists": true,
+      "num_eval_events": 5,
+      "num_labels": null,
+      "path": "outputs/deberta_v3_baseline_plain_trainer_5ep_classweights/checkpoint-6725",
+      "step": 6725
+    }
+  ],
+  "eval_metric_signatures": [
+    {
+      "epoch": 1.0,
+      "eval_accuracy": 0.778265271684104,
+      "eval_f1": 0.67919921875,
+      "eval_loss": 0.4457630515098572,
+      "eval_macro_f1": 0.7548909966880479,
+      "eval_mcc": 0.5446204420667269,
+      "step": 1345
+    },
+    {
+      "epoch": 2.0,
+      "eval_accuracy": 0.7868714141073236,
+      "eval_f1": 0.6992140985949036,
+      "eval_loss": 0.40301164984703064,
+      "eval_macro_f1": 0.7670903891641707,
+      "eval_mcc": 0.578574688407788,
+      "step": 2690
+    },
+    {
+      "epoch": 3.0,
+      "eval_accuracy": 0.7840026999662504,
+      "eval_f1": 0.7006548175865295,
+      "eval_loss": 0.48765838146209717,
+      "eval_macro_f1": 0.76585011206676,
+      "eval_mcc": 0.5832901818868462,
+      "step": 4035
+    },
+    {
+      "epoch": 4.0,
+      "eval_accuracy": 0.8363145460681741,
+      "eval_f1": 0.7330764997248211,
+      "eval_loss": 0.4451952576637268,
+      "eval_macro_f1": 0.807521457455499,
+      "eval_mcc": 0.6227763416444652,
+      "step": 5380
+    },
+    {
+      "epoch": 5.0,
+      "eval_accuracy": 0.8062774215322308,
+      "eval_f1": 0.7149950347567031,
+      "eval_loss": 0.5493393540382385,
+      "eval_macro_f1": 0.7841335091983925,
+      "eval_mcc": 0.5991382950397502,
+      "step": 6725
+    }
+  ],
+  "exists": true,
+  "output_root": "outputs/deberta_v3_baseline_plain_trainer_5ep_classweights"
+}

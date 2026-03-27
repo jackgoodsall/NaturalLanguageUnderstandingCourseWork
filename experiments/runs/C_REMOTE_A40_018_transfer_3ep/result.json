@@ -1,0 +1,74 @@
+{
+  "run_id": "C_REMOTE_A40_018",
+  "variant": "deberta_v3_transfer_3ep",
+  "device": "cuda",
+  "config": {
+    "model_name": "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+    "max_length": 256,
+    "train_bs": 16,
+    "eval_bs": 32,
+    "grad_accum": 1,
+    "lr": 1e-05,
+    "epochs": 3,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.06,
+    "lr_scheduler_type": "linear",
+    "metric_for_best_model": "f1",
+    "seed": 42
+  },
+  "best_model_checkpoint": "/workspace/NaturalLanguageUnderstandingCourseWork/outputs/deberta_v3_transfer_3ep/checkpoint-4035",
+  "best_metric_name": "f1",
+  "best_metric_value": 0.8091168091168092,
+  "metrics_at_threshold_0_5": {
+    "accuracy": 0.8869389132635842,
+    "binary_precision": 0.7593582887700535,
+    "binary_recall": 0.8658536585365854,
+    "binary_f1": 0.8091168091168092,
+    "macro_precision": 0.8525588288031727,
+    "macro_recall": 0.8804303290349749,
+    "macro_f1": 0.8644001691232571,
+    "matthews_corrcoef": 0.7324590671041662,
+    "confusion_matrix": [
+      [
+        3836,
+        450
+      ],
+      [
+        220,
+        1420
+      ]
+    ]
+  },
+  "threshold_probe": {
+    "best_by_metric": {
+      "accuracy": {
+        "threshold": 0.895,
+        "accuracy": 0.8950388120148498,
+        "prediction_rate_positive": 0.25143435707053663
+      },
+      "binary_f1": {
+        "threshold": 0.455,
+        "binary_f1": 0.8111769686706182,
+        "prediction_rate_positive": 0.3211272359095511
+      },
+      "macro_f1": {
+        "threshold": 0.855,
+        "macro_f1": 0.8660338866012578,
+        "prediction_rate_positive": 0.2647654404319946
+      },
+      "matthews_corrcoef": {
+        "threshold": 0.455,
+        "matthews_corrcoef": 0.7354078508336643,
+        "prediction_rate_positive": 0.3211272359095511
+      }
+    }
+  },
+  "train_metrics": {
+    "train_runtime": 582.5943,
+    "train_samples_per_second": 110.753,
+    "train_steps_per_second": 6.926,
+    "train_loss": 0.2555582042963531,
+    "epoch": 3.0
+  }
+}
+
