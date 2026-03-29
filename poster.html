@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evidence Detection Poster</title>
+  <style>
+    :root {
+      --paper: #f4efe6;
+      --panel: #fffaf2;
+      --ink: #1f1f1b;
+      --muted: #5b5a52;
+      --accent: #a53d1f;
+      --accent-2: #184a45;
+      --line: #d9cbb7;
+      --shadow: rgba(48, 36, 22, 0.08);
+    }
+
+    @page {
+      size: A1 landscape;
+      margin: 10mm;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(165, 61, 31, 0.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(24, 74, 69, 0.08), transparent 28%),
+        linear-gradient(135deg, #f8f4ec, var(--paper));
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    .poster {
+      width: 100%;
+      min-height: 100vh;
+      padding: 18mm;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 14mm;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 10mm;
+      align-items: start;
+    }
+
+    .title-block {
+      background: linear-gradient(160deg, rgba(255, 250, 242, 0.95), rgba(255, 244, 231, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 8mm 9mm;
+      box-shadow: 0 8px 24px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .title-block::after {
+      content: "";
+      position: absolute;
+      inset: auto -5% -55% auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(165, 61, 31, 0.11), transparent 70%);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0 0 3mm;
+      font-family: Georgia, "Iowan Old Style", serif;
+      font-size: 34pt;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      font-size: 13pt;
+      color: var(--muted);
+      max-width: 85ch;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .track-card {
+      background: #182423;
+      color: #f5efe5;
+      border-radius: 20px;
+      padding: 8mm;
+      box-shadow: 0 10px 24px rgba(17, 24, 22, 0.22);
+    }
+
+    .track-card .eyebrow,
+    .section-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 8pt;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .track-card .eyebrow { color: #d3a98d; }
+
+    .track-card h2 {
+      margin: 3mm 0 4mm;
+      font-size: 18pt;
+      font-family: Georgia, "Iowan Old Style", serif;
+      line-height: 1.1;
+    }
+
+    .track-card p,
+    .track-card li {
+      margin: 0;
+      font-size: 11pt;
+      line-height: 1.45;
+      color: rgba(245, 239, 229, 0.92);
+    }
+
+    .track-card ul {
+      margin: 4mm 0 0 4mm;
+      padding-left: 4mm;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 10mm;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 7mm;
+      box-shadow: 0 8px 18px var(--shadow);
+    }
+
+    .card h3 {
+      margin: 2mm 0 4mm;
+      font-size: 17pt;
+      font-family: Georgia, "Iowan Old Style", serif;
+      line-height: 1.1;
+    }
+
+    .card p,
+    .card li,
+    table {
+      font-size: 10.5pt;
+      line-height: 1.4;
+    }
+
+    .card ul,
+    .card ol {
+      margin: 0;
+      padding-left: 5mm;
+    }
+
+    .poster-body {
+      display: grid;
+      grid-template-columns: 1.06fr 1.06fr 0.88fr;
+      gap: 10mm;
+    }
+
+    .column {
+      display: grid;
+      gap: 10mm;
+      align-content: start;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.55);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 2.6mm 2.4mm;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(24, 74, 69, 0.09);
+      font-size: 9.5pt;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3mm;
+      margin-top: 4mm;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 3mm;
+      background: rgba(255,255,255,0.75);
+    }
+
+    .metric .label {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1mm;
+    }
+
+    .metric .value {
+      font-size: 15pt;
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 2.4mm;
+      margin-top: 4mm;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 12mm 1fr;
+      gap: 3mm;
+      align-items: start;
+      border-top: 1px solid rgba(217, 203, 183, 0.8);
+      padding-top: 2.4mm;
+    }
+
+    .step:first-child { border-top: none; padding-top: 0; }
+
+    .step-num {
+      width: 9mm;
+      height: 9mm;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      font-weight: 700;
+      margin-top: 0.5mm;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 10pt;
+      margin-bottom: 0.5mm;
+    }
+
+    .mini-note {
+      font-size: 9pt;
+      color: var(--muted);
+    }
+
+    .winner-box {
+      background: linear-gradient(140deg, rgba(24, 74, 69, 0.94), rgba(16, 48, 44, 0.98));
+      color: #f7f2e8;
+      border-radius: 18px;
+      padding: 7mm;
+      box-shadow: 0 12px 24px rgba(19, 43, 40, 0.24);
+    }
+
+    .winner-box h3 {
+      color: #f7f2e8;
+      margin-top: 2mm;
+    }
+
+    .winner-box table {
+      background: rgba(255,255,255,0.08);
+      color: #f7f2e8;
+    }
+
+    .winner-box th, .winner-box td {
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .winner-box th {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .footer-note {
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+
+    .small { font-size: 9.3pt; }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <section class="masthead">
+      <div class="title-block">
+        <div class="section-eyebrow">COMP34812 Coursework · Evidence Detection</div>
+        <h1>Evidence Detection With a BiLSTM Baseline and a Transfer-Initialised DeBERTa Ensemble</h1>
+        <p class="subtitle">
+          We model claim-evidence relevance as a binary sequence-pair classification problem. The final coursework submission uses one non-transformer system (`Solution B`) and one transformer system (`Solution C`), both evaluated on the official closed-track train/dev data and locked through explicit run records.
+        </p>
+      </div>
+      <aside class="track-card">
+        <div class="eyebrow">Task Summary</div>
+        <h2>Given a claim and a candidate evidence snippet, predict whether the evidence is relevant.</h2>
+        <ul>
+          <li>Track: `Evidence Detection (ED)`</li>
+          <li>Setting: closed-track coursework data only</li>
+          <li>Submission pair: one `B` method and one `C` method</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="stats-row">
+      <article class="card">
+        <div class="section-eyebrow">Dataset</div>
+        <h3>Official Train/Dev Data</h3>
+        <table>
+          <thead>
+            <tr><th>Split</th><th>Rows</th><th>Negative</th><th>Positive</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Train</td><td>21,508</td><td>15,654</td><td>5,854</td></tr>
+            <tr><td>Dev</td><td>5,926</td><td>4,286</td><td>1,640</td></tr>
+            <tr><td>Combined</td><td>27,434</td><td>19,940</td><td>7,494</td></tr>
+          </tbody>
+        </table>
+        <p class="small" style="margin-top:4mm;">
+          The positive class is about <strong>27.3%</strong> of the combined train+dev data. Claims are very short, while evidence snippets are materially longer, which makes thresholding and false-positive control important.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="section-eyebrow">Sequence Characteristics</div>
+        <h3>Pair Lengths</h3>
+        <table>
+          <thead>
+            <tr><th>Statistic</th><th>Claims</th><th>Evidence</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Mean words (train)</td><td>5.60</td><td>31.13</td></tr>
+            <tr><td>Mean words (dev)</td><td>5.62</td><td>31.20</td></tr>
+            <tr><td>Median words</td><td>5</td><td>28</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card">
+        <div class="section-eyebrow">Submission Lock</div>
+        <h3>Canonical Systems</h3>
+        <p class="small">
+          Submission paths are locked in <code>experiments/decisions/D011_submission_lock.md</code>.
+        </p>
+        <ul>
+          <li><strong>Solution B</strong>: ESIM-style BiLSTM, threshold <code>0.60</code></li>
+          <li><strong>Solution C</strong>: transfer-initialised DeBERTa-v3 3-seed ensemble, threshold <code>0.50</code></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="poster-body">
+      <div class="column">
+        <article class="card">
+          <div class="section-eyebrow">Solution B</div>
+          <h3>ESIM-Style BiLSTM</h3>
+          <p class="small">
+            Goal: provide a strong non-transformer baseline that still models claim-evidence interaction rather than classifying each sequence independently.
+          </p>
+          <div class="pipeline">
+            <div class="step"><div class="step-num">1</div><div><strong>Embedding</strong><span class="mini-note">Lowercase, lightweight cleanup, FastText 300d vectors via gensim.</span></div></div>
+            <div class="step"><div class="step-num">2</div><div><strong>Shared BiLSTM Encoding</strong><span class="mini-note">Claim and evidence are encoded with the same sequence encoder.</span></div></div>
+            <div class="step"><div class="step-num">3</div><div><strong>Co-Attention</strong><span class="mini-note">Cross-attention aligns both sequences and exposes token-level interaction.</span></div></div>
+            <div class="step"><div class="step-num">4</div><div><strong>Composition + Pooling</strong><span class="mini-note">Enhanced representations pass through a second BiLSTM and mean/max pooling.</span></div></div>
+            <div class="step"><div class="step-num">5</div><div><strong>Classification</strong><span class="mini-note">MLP head outputs the binary relevance score.</span></div></div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><div class="label">Accuracy</div><div class="value">0.8137</div></div>
+            <div class="metric"><div class="label">Binary F1</div><div class="value">0.6824</div></div>
+            <div class="metric"><div class="label">Macro F1</div><div class="value">0.7753</div></div>
+            <div class="metric"><div class="label">MCC</div><div class="value">0.5529</div></div>
+          </div>
+          <p class="small" style="margin-top:4mm;">
+            The locked `B` path is threshold-sensitive. The default threshold `0.50` underperformed the tuned operating threshold `0.60`, indicating that calibration mattered materially for minority-class behaviour.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="section-eyebrow">Error Analysis</div>
+          <h3>Observed Failure Modes</h3>
+          <ul>
+            <li><strong>Solution B:</strong> over-predicts the positive class at the default threshold, which hurts both macro F1 and MCC.</li>
+            <li><strong>Solution C:</strong> still makes `451` false positives and `207` false negatives on dev at the locked threshold.</li>
+            <li>Many remaining errors appear to come from evidence that is semantically related to the claim but not actually strong enough to count as relevant evidence.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="column">
+        <article class="card">
+          <div class="section-eyebrow">Solution C</div>
+          <h3>Transfer-Initialised DeBERTa-v3 Ensemble</h3>
+          <p class="small">
+            Goal: maximise transformer performance while keeping the path stable, reproducible, and clearly measurable.
+          </p>
+          <div class="pipeline">
+            <div class="step"><div class="step-num">1</div><div><strong>Base Model</strong><span class="mini-note">Start from <code>MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli</code>.</span></div></div>
+            <div class="step"><div class="step-num">2</div><div><strong>Pair Encoding</strong><span class="mini-note">Cross-encoder on claim/evidence pairs with max length <code>256</code>.</span></div></div>
+            <div class="step"><div class="step-num">3</div><div><strong>Stable Training</strong><span class="mini-note">Float32 path, `lr=1e-5`, `epochs=3`, `weight_decay=0.01`, warmup `0.06`.</span></div></div>
+            <div class="step"><div class="step-num">4</div><div><strong>Ensemble</strong><span class="mini-note">Train seeds `42`, `52`, `62` and average probabilities.</span></div></div>
+            <div class="step"><div class="step-num">5</div><div><strong>Locked Path</strong><span class="mini-note">Use default threshold `0.50` for the submission system.</span></div></div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><div class="label">Accuracy</div><div class="value">0.8890</div></div>
+            <div class="metric"><div class="label">Binary F1</div><div class="value">0.8133</div></div>
+            <div class="metric"><div class="label">Macro F1</div><div class="value">0.8671</div></div>
+            <div class="metric"><div class="label">MCC</div><div class="value">0.7384</div></div>
+          </div>
+          <p class="small" style="margin-top:4mm;">
+            Transfer initialisation produced a much larger gain than continuing broad tuning on the plain baseline. A three-seed ensemble improved robustness, while pushing to five seeds gave weak returns.
+          </p>
+        </article>
+
+        <article class="winner-box">
+          <div class="section-eyebrow">Why C Leads</div>
+          <h3>Locked Submission Comparison</h3>
+          <table>
+            <thead>
+              <tr><th>Metric</th><th>Solution B</th><th>Solution C</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Accuracy</td><td>0.8137</td><td>0.8890</td></tr>
+              <tr><td>Binary F1</td><td>0.6824</td><td>0.8133</td></tr>
+              <tr><td>Macro F1</td><td>0.7753</td><td>0.8671</td></tr>
+              <tr><td>MCC</td><td>0.5529</td><td>0.7384</td></tr>
+            </tbody>
+          </table>
+          <p class="small" style="color: rgba(247,242,232,0.88); margin-top:4mm;">
+            `Solution C` is the primary submission system because it is ahead on every tracked dev metric. `Solution B` remains valuable because it satisfies the second required approach category and provides the non-transformer comparison system.
+          </p>
+        </article>
+      </div>
+
+      <div class="column">
+        <article class="card">
+          <div class="section-eyebrow">Dev Results</div>
+          <h3>Against Official Baselines</h3>
+          <table>
+            <thead>
+              <tr><th>System</th><th>Acc</th><th>Bin F1</th><th>Macro F1</th><th>MCC</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Official ED LSTM baseline</td><td>0.8058</td><td>-</td><td>0.7083</td><td>0.4674</td></tr>
+              <tr><td>Official ED BERT baseline</td><td>0.8745</td><td>-</td><td>0.8348</td><td>0.6748</td></tr>
+              <tr><td>Locked Solution B</td><td>0.8137</td><td>0.6824</td><td>0.7753</td><td>0.5529</td></tr>
+              <tr><td>Locked Solution C</td><td>0.8890</td><td>0.8133</td><td>0.8671</td><td>0.7384</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <div class="section-eyebrow">Limits and Risks</div>
+          <h3>What This Work Does Not Solve</h3>
+          <ul>
+            <li>The dataset is imbalanced, so headline accuracy can hide minority-class failures.</li>
+            <li>Neither system provides explanatory rationales for why evidence was judged relevant.</li>
+            <li>False positives can surface irrelevant evidence; false negatives can hide useful evidence.</li>
+            <li>The closed-track setting prevents use of external retrieval or evidence-ranking data.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="section-eyebrow">Demo Paths</div>
+          <h3>Marker-Facing Reproducibility</h3>
+          <ul>
+            <li><strong>Solution B notebook:</strong> <code>solution_b_demo_inference.ipynb</code></li>
+            <li><strong>Solution C notebook:</strong> <code>solution_c_5_seed_ensemble_development.ipynb</code></li>
+            <li><strong>Submission lock:</strong> <code>experiments/decisions/D011_submission_lock.md</code></li>
+            <li><strong>Test-day runbook:</strong> <code>ops/TEST_DAY_RUNBOOK.md</code></li>
+          </ul>
+          <p class="footer-note" style="margin-top:4mm;">
+            This HTML file is the poster-ready layout source. Export to PDF from a browser print dialog once the final team names and cloud artifact links are confirmed.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

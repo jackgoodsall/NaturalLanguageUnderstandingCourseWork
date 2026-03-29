@@ -29,6 +29,11 @@ This repository contains two coursework solutions for the COMP34812 NLU coursewo
 
 Official coursework files are stored under `official_coursework`.
 
+Poster sources:
+
+- content draft: `poster.md`
+- poster-ready layout source: `poster.html`
+
 ## Environment Setup
 
 Create the local environment:
@@ -221,7 +226,7 @@ Still incomplete on this branch:
 
 - final trained model artifacts and cloud links
 - final predictions on released test data
-- final poster export / layout polish
+- final poster PDF export
 - final group-number substitution in the submission filenames
 
 ## Use of Generative AI Tools
