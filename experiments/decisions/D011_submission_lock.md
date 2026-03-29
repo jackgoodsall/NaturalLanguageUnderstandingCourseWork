@@ -27,7 +27,7 @@ Use the following two systems as the official coursework submission pair for `Ev
   - binary_f1 `0.8132803632236095`
   - macro_f1 `0.8671348982304408`
   - matthews_corrcoef `0.7383867359239816`
-- marker-facing demo path: `solution_c_5_seed_ensemble_development.ipynb`
+- marker-facing demo path: `solution_c_demo_inference.ipynb`
 - supporting runner and result record:
   - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/run_transfer_seed3.py`
   - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`

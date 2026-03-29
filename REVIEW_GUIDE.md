@@ -36,6 +36,8 @@ Primary `B` code:
 Primary `C` result:
 
 - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+- `solution_c_demo_inference.ipynb`
+- `src/solution_c/README.md`
 
 Default-threshold metrics:
 
@@ -53,6 +55,7 @@ Best tuned metrics from the same run:
 
 Primary `C` notebooks:
 
+- `solution_c_demo_inference.ipynb`
 - `solution_c_baseline_development.ipynb`
 - `solution_c_5_seed_ensemble_development.ipynb`
 - `solution_c_5_fold_ensemble_development.ipynb`

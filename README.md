@@ -22,7 +22,8 @@ Current locked submission systems:
 This repository contains two coursework solutions for the COMP34812 NLU coursework:
 
 1. `Solution B`: ESIM-style BiLSTM with pretrained FastText embeddings in `src/solution_b`
-2. `Solution C`: transformer-based DeBERTa notebooks in:
+2. `Solution C`: transformer-based DeBERTa notebooks plus an explicit marker-facing inference notebook:
+   - `solution_c_demo_inference.ipynb`
    - `solution_c_baseline_development.ipynb`
    - `solution_c_5_seed_ensemble_development.ipynb`
    - `solution_c_5_fold_ensemble_development.ipynb`
@@ -121,9 +122,11 @@ Notes:
 
 Primary notebooks live at the repo root:
 
+- `solution_c_demo_inference.ipynb`
 - `solution_c_baseline_development.ipynb`
 - `solution_c_5_seed_ensemble_development.ipynb`
 - `solution_c_5_fold_ensemble_development.ipynb`
+- `src/solution_c/README.md`
 
 Current strongest validated run:
 
@@ -145,14 +148,21 @@ The transformer notebooks now:
 
 Recommended execution order:
 
-1. `solution_c_baseline_development.ipynb`
-2. `solution_c_5_seed_ensemble_development.ipynb`
-3. `solution_c_5_fold_ensemble_development.ipynb`
+1. `solution_c_demo_inference.ipynb` for marker-facing inference on the locked submission system
+2. `solution_c_baseline_development.ipynb`
+3. `solution_c_5_seed_ensemble_development.ipynb`
+4. `solution_c_5_fold_ensemble_development.ipynb`
 
 For the current official submission system, use the transfer-ensemble record in:
 
 - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
 - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/run_transfer_seed3.py`
+- `solution_c_demo_inference.ipynb`
+
+Notes:
+
+- `solution_c_demo_inference.ipynb` is the explicit marker-facing demo path for the locked three-seed transfer ensemble.
+- `solution_c_5_seed_ensemble_development.ipynb` remains the historical development notebook, not the primary submission demo.
 
 ## Local Scorer
 
@@ -226,8 +236,6 @@ Locked systems that these cloud links must correspond to:
 Still incomplete on this branch:
 
 - final trained model artifacts and cloud links
-- final predictions on released test data
-- final group-number substitution in the submission filenames
 
 ## Use of Generative AI Tools
 

@@ -76,35 +76,24 @@ In `solution_b_demo_inference.ipynb`, update the path configuration cell to:
 
 ### Locked operating settings
 
-- demo notebook path: `solution_c_5_seed_ensemble_development.ipynb`
+- demo notebook path: `solution_c_demo_inference.ipynb`
 - official submission threshold: `0.50`
 - locked model family: transfer-initialised three-seed ensemble
 
 ### Inputs you must set in the notebook
 
-Open `solution_c_5_seed_ensemble_development.ipynb` and use it only as the inference shell for the locked transfer ensemble.
+Open `solution_c_demo_inference.ipynb` and use it as the inference path for the locked transfer ensemble.
 
-Update the relevant variables so that:
+Update the configuration cell so that:
 
-1. `seed_model_dirs` points to the three downloaded locked model directories for the transfer ensemble
-2. `best_threshold` is set to `0.50`
-3. `TEST_PATH` is `./official_coursework/test_data/ED_test.csv`
-4. `OUT_PATH` is `./outputs/submission/c_predictions_debug.csv`
+1. `GROUP_NUMBER` matches the confirmed Canvas group number
+2. `SEED_MODEL_DIRS` points to the three downloaded locked model directories for the transfer ensemble
+3. `INPUT_CSV` points at the released ED test CSV
+4. `OUTPUT_CSV` is `outputs/submission/c_predictions_debug.csv`
+5. `SUBMISSION_FILE` is `outputs/submission/Group_52_C.csv`
+6. `THRESHOLD` is `0.50`
 
 The locked seed count is `3`, not `5`, so do not use extra model directories that are not part of `C_REMOTE_A40_019`.
-
-### Convert the detailed C output into the final submission file
-
-The notebook writes a detailed CSV containing `prob_relevant` and `pred`. Convert that file into the required one-label-per-line submission file with:
-
-```bash
-cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
-python3 - <<'PY'
-import pandas as pd
-df = pd.read_csv('outputs/submission/c_predictions_debug.csv')
-df[['pred']].to_csv('outputs/submission/Group_n_C.csv', index=False, header=False)
-PY
-```
 
 ### Expected outputs
 
