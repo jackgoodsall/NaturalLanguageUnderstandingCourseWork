@@ -172,9 +172,8 @@ Still incomplete on this branch:
 
 - final trained model artifacts and cloud links
 - final predictions on released test data
-- `model_card_b.md`
-- completed `model_card_c.md`
-- completed `poster.md`
+- final poster export / layout polish
+- final attribution and cloud-link section in this README
 
 ## Use of Generative AI Tools
 
