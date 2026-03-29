@@ -166,6 +166,15 @@ Run history, decision records, and audit tooling live under:
 - `experiments/decisions`
 - `experiments/debug`
 
+Test-day execution checklist:
+
+- `ops/TEST_DAY_RUNBOOK.md`
+
+Final prediction filenames on submission day:
+
+- `Group_n_B.csv`
+- `Group_n_C.csv`
+
 ## Attribution and Reused Resources
 
 This coursework branch builds on the official coursework materials and standard external model/software resources listed below.
@@ -213,6 +222,7 @@ Still incomplete on this branch:
 - final trained model artifacts and cloud links
 - final predictions on released test data
 - final poster export / layout polish
+- final group-number substitution in the submission filenames
 
 ## Use of Generative AI Tools
 
