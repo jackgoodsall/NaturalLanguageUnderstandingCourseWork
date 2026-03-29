@@ -166,6 +166,46 @@ Run history, decision records, and audit tooling live under:
 - `experiments/decisions`
 - `experiments/debug`
 
+## Attribution and Reused Resources
+
+This coursework branch builds on the official coursework materials and standard external model/software resources listed below.
+
+### Official coursework resources
+
+- task specification: `official_coursework/NaturalLanguageUnderstandingCourseWorkSpec.pdf`
+- official train/dev data: `training_data/train.csv`, `training_data/dev.csv`
+- official trial files: `official_coursework/trial_data`
+- official local scorer: `official_coursework/nlu_bundle-feature-unified-local-scorer`
+- official model-card template resources:
+  - `COMP34812 Coursework - Model Card Resources/COMP34812_modelcard_template.md`
+  - `COMP34812 Coursework - Model Card Resources/Model Card Creation.ipynb`
+
+### External software and model resources
+
+- PyTorch for model training and inference
+- Hugging Face `transformers` / `datasets` for the transformer pipeline
+- `gensim` pretrained `fasttext-wiki-news-subwords-300` vectors for `Solution B`
+- transfer-initialised checkpoint `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli` for the locked `Solution C`
+- scikit-learn, pandas, and NumPy for evaluation and experiment analysis
+
+### Closed-track note
+
+No external task datasets were added to the Evidence Detection training/evaluation workflow. The work stayed within the closed-track coursework setting, with the only external model resource being the public pretrained checkpoint used to initialise the transformer submission path.
+
+## Model Artifact Hosting
+
+Large trained model artifacts are intentionally not committed to git. The final submission package should therefore include cloud-hosted links for the locked `B` and `C` resources.
+
+Populate the following entries before the final Canvas upload:
+
+- `Solution B` locked checkpoint / artifact link: `ADD_FINAL_CLOUD_LINK_HERE`
+- `Solution C` seed/ensemble artifact link: `ADD_FINAL_CLOUD_LINK_HERE`
+
+Locked systems that these cloud links must correspond to:
+
+- `Solution B`: `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+- `Solution C`: `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+
 ## Current Submission Gaps
 
 Still incomplete on this branch:
@@ -173,9 +213,16 @@ Still incomplete on this branch:
 - final trained model artifacts and cloud links
 - final predictions on released test data
 - final poster export / layout polish
-- final attribution and cloud-link section in this README
 
 ## Use of Generative AI Tools
 
-This branch has used AI-assisted engineering support for audit, environment setup, and runtime refactoring.  
-Before final submission, this section should be updated with the exact tools used and the final human-reviewed scope of accepted changes, in line with the coursework brief.
+We used generative AI tools, including OpenAI Codex/ChatGPT, as engineering support tools during parts of the coursework workflow.
+
+Their role included:
+
+- debugging runtime and environment issues
+- suggesting refactors and code-structure improvements
+- helping draft and revise documentation, summaries, and submission-facing notes
+- assisting with experiment bookkeeping and result comparison
+
+The final technical decisions, including method selection, experiment design, hyperparameter choices, interpretation of results, and acceptance of code changes, were made by the team. All submitted code, model cards, poster content, and result summaries were reviewed and edited by us before submission.
