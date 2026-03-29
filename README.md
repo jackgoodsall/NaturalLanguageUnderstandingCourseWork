@@ -33,6 +33,7 @@ Poster sources:
 
 - content draft: `poster.md`
 - poster-ready layout source: `poster.html`
+- exported poster PDF: `poster.pdf`
 
 ## Environment Setup
 
@@ -226,7 +227,6 @@ Still incomplete on this branch:
 
 - final trained model artifacts and cloud links
 - final predictions on released test data
-- final poster PDF export
 - final group-number substitution in the submission filenames
 
 ## Use of Generative AI Tools
