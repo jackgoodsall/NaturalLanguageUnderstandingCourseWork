@@ -2,6 +2,12 @@
 
 This file is the shortest path through the branch for technical review.
 
+For submission-facing review, start with:
+
+1. `experiments/decisions/D011_submission_lock.md`
+2. `experiments/decisions/D010_solution_c_transfer_ensemble.md`
+3. `experiments/baseline_ledger.csv`
+
 ## Current winners
 
 ### Solution B
@@ -9,6 +15,7 @@ This file is the shortest path through the branch for technical review.
 Competitive thresholded `B` result:
 
 - `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+- `solution_b_demo_inference.ipynb`
 
 At threshold `0.60`:
 
@@ -21,7 +28,6 @@ Primary `B` code:
 
 - `src/solution_b/train.py`
 - `src/solution_b/evaluate.py`
-- `src/solution_b/hpo.py`
 - `src/solution_b/runtime.py`
 - `src/solution_b/models.py`
 

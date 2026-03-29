@@ -254,11 +254,17 @@ def main():
     else:
         # --- Unlabelled data: output raw predictions ---
         print("No labels found — writing raw predictions.")
+        preds = (probs >= args.threshold).astype(int)
         df["prob"] = probs
-        df["pred"] = (probs >= args.threshold).astype(int)
+        df["pred"] = preds
         out = args.output or "predictions.csv"
         df[["Claim", "Evidence", "prob", "pred"]].to_csv(out, index=False)
         print(f"Predictions saved to {out}")
+        if args.submission:
+            with open(args.submission, "w") as f:
+                for p in preds:
+                    f.write(f"{p}\n")
+            print(f"Submission file saved to {args.submission} ({len(preds)} rows)")
 
 
 if __name__ == "__main__":

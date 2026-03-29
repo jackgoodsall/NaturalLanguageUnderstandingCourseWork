@@ -8,14 +8,15 @@ Solution pairing: `B + C`
 If you are reviewing the branch and want the fastest path through the repo, start with:
 
 1. `REVIEW_GUIDE.md`
-2. `experiments/decisions/D010_solution_c_transfer_ensemble.md`
-3. `experiments/baseline_ledger.csv`
+2. `experiments/decisions/D011_submission_lock.md`
+3. `experiments/decisions/D010_solution_c_transfer_ensemble.md`
+4. `experiments/baseline_ledger.csv`
 
-Current lead paths:
+Current locked submission systems:
 
-- `Solution B` competitive thresholded result:
+- `Solution B` official submission record:
   - `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
-- `Solution C` primary result:
+- `Solution C` official submission record:
   - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
 
 This repository contains two coursework solutions for the COMP34812 NLU coursework:
@@ -66,12 +67,20 @@ Primary code lives in:
 
 - `src/solution_b`
 - `solution_b_development.ipynb`
+- `solution_b_demo_inference.ipynb`
 
-Current validated baseline:
+Locked submission record:
 
-- `experiments/runs/B_REMOTE_FULL_001/result.json`
-- best thresholded comparison:
-  - `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+- `experiments/decisions/D011_submission_lock.md`
+- `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
+
+Official thresholded metrics for the submission path:
+
+- threshold `0.60`
+- accuracy `0.813702328720891`
+- binary_f1 `0.6823935558112774`
+- macro_f1 `0.7752941991090772`
+- matthews_corrcoef `0.5529387441032668`
 
 Train:
 
@@ -95,19 +104,12 @@ python -m src.solution_b.evaluate \
   --sweep
 ```
 
-HPO:
-
-```bash
-source .venv/bin/activate
-python -m src.solution_b.hpo \
-  --output-dir outputs/hpo \
-  --device auto
-```
-
 Notes:
 
 - `--device auto` now supports `cuda`, `mps`, and `cpu`.
 - The default embedding model is `fasttext-wiki-news-subwords-300`, which triggers a large one-time gensim download.
+- For marker-facing inference/demo use `solution_b_demo_inference.ipynb`.
+- For unlabelled CSVs, `src.solution_b.evaluate` can now write both a detailed predictions CSV and a scorer-style one-label-per-line submission file via `--submission`.
 
 ## Solution C
 
@@ -121,8 +123,9 @@ Current strongest validated run:
 
 - `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
 
-Current promotion decision:
+Current lock and promotion decisions:
 
+- `experiments/decisions/D011_submission_lock.md`
 - `experiments/decisions/D010_solution_c_transfer_ensemble.md`
 
 Run the notebooks from the project root with the `NLU CourseWork` kernel.
@@ -139,6 +142,11 @@ Recommended execution order:
 1. `solution_c_baseline_development.ipynb`
 2. `solution_c_5_seed_ensemble_development.ipynb`
 3. `solution_c_5_fold_ensemble_development.ipynb`
+
+For the current official submission system, use the transfer-ensemble record in:
+
+- `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
+- `experiments/runs/C_REMOTE_A40_019_transfer_seed3/run_transfer_seed3.py`
 
 ## Local Scorer
 
