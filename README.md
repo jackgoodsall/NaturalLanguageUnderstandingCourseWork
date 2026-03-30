@@ -221,10 +221,10 @@ No external task datasets were added to the Evidence Detection training/evaluati
 
 Large trained model artifacts are intentionally not committed to git. The final submission package should therefore include cloud-hosted links for the locked `B` and `C` resources.
 
-Populate the following entries before the final Canvas upload:
+Current cloud links:
 
-- `Solution B` locked checkpoint / artifact link: `ADD_FINAL_CLOUD_LINK_HERE`
-- `Solution C` seed/ensemble artifact link: `ADD_FINAL_CLOUD_LINK_HERE`
+- `Solution B` locked checkpoint / artifact link: `https://drive.google.com/drive/folders/1n7I2mY2hIYhh2yJbz4PNHRUur5ztfW0h`
+- `Solution C` seed/ensemble artifact link: `https://drive.google.com/drive/folders/1Qcdft2luk5o9nyy0kPpwk0ozXDZeFPTq`
 
 Locked systems that these cloud links must correspond to:
 
@@ -233,9 +233,9 @@ Locked systems that these cloud links must correspond to:
 
 ## Current Submission Gaps
 
-Still incomplete on this branch:
+Remaining step on this branch:
 
-- final trained model artifacts and cloud links
+- final group review and merge to `main`
 
 ## Use of Generative AI Tools
 
