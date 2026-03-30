@@ -9,10 +9,8 @@ This document is the operational checklist for generating the final Evidence Det
 
 Expected submission filenames:
 
-- `Group_n_B.csv`
-- `Group_n_C.csv`
-
-Replace `n` with the actual Canvas group number before submission.
+- `Group_52_B.csv`
+- `Group_52_C.csv`
 
 ## Preconditions
 
@@ -29,23 +27,23 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Decide the final group number and replace `Group_n_B.csv` / `Group_n_C.csv` with the correct filenames before submission.
+4. Keep the confirmed Canvas group number `52` in the final filenames.
 
 ## Recommended local layout on test day
 
 Use these paths consistently:
 
-- input test CSV: `official_coursework/test_data/ED_test.csv`
+- input test CSV: `official_coursework/released_test_data/test_data/ED/test.csv`
 - temporary detailed `B` output: `outputs/submission/b_predictions_debug.csv`
-- final `B` submission file: `outputs/submission/Group_n_B.csv`
+- final `B` submission file: `outputs/submission/Group_52_B.csv`
 - temporary detailed `C` output: `outputs/submission/c_predictions_debug.csv`
-- final `C` submission file: `outputs/submission/Group_n_C.csv`
+- final `C` submission file: `outputs/submission/Group_52_C.csv`
 
 Create the directory if needed:
 
 ```bash
 cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
-mkdir -p outputs/submission official_coursework/test_data
+mkdir -p outputs/submission
 ```
 
 ## Solution B Generation
@@ -57,12 +55,12 @@ mkdir -p outputs/submission official_coursework/test_data
 
 ### Inputs you must set in the notebook
 
-In `solution_b_demo_inference.ipynb`, update the path configuration cell to:
+In `solution_b_demo_inference.ipynb`, confirm the path configuration cell is:
 
-- `MODEL_CHECKPOINT` = local downloaded checkpoint path for locked `Solution B`
-- `INPUT_CSV` = `official_coursework/test_data/ED_test.csv`
+- `MODEL_CHECKPOINT` = `official_coursework/local_artifacts/B_REMOTE_FULL_001_best_model.pt`
+- `INPUT_CSV` = `official_coursework/released_test_data/test_data/ED/test.csv`
 - `OUTPUT_CSV` = `outputs/submission/b_predictions_debug.csv`
-- `SUBMISSION_FILE` = `outputs/submission/Group_n_B.csv`
+- `SUBMISSION_FILE` = `outputs/submission/Group_52_B.csv`
 - `THRESHOLD` = `0.60`
 
 ### Expected outputs
@@ -70,7 +68,7 @@ In `solution_b_demo_inference.ipynb`, update the path configuration cell to:
 - detailed CSV with probabilities and predictions:
   - `outputs/submission/b_predictions_debug.csv`
 - scorer-style submission file with one label per line:
-  - `outputs/submission/Group_n_B.csv`
+  - `outputs/submission/Group_52_B.csv`
 
 ## Solution C Generation
 
@@ -100,7 +98,7 @@ The locked seed count is `3`, not `5`, so do not use extra model directories tha
 - detailed CSV with probabilities and predictions:
   - `outputs/submission/c_predictions_debug.csv`
 - scorer-style submission file with one label per line:
-  - `outputs/submission/Group_n_C.csv`
+  - `outputs/submission/Group_52_C.csv`
 
 ## Sanity Checks
 
@@ -112,7 +110,7 @@ Run these checks before zipping or uploading anything.
 cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
 python3 - <<'PY'
 import pandas as pd
-df = pd.read_csv('official_coursework/test_data/ED_test.csv')
+df = pd.read_csv('official_coursework/released_test_data/test_data/ED/test.csv')
 print('test_rows', len(df))
 PY
 ```
@@ -121,14 +119,14 @@ PY
 
 ```bash
 cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
-wc -l outputs/submission/Group_n_B.csv
+wc -l outputs/submission/Group_52_B.csv
 ```
 
 ### 3. C submission row count
 
 ```bash
 cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
-wc -l outputs/submission/Group_n_C.csv
+wc -l outputs/submission/Group_52_C.csv
 ```
 
 Both submission line counts must match the number of rows in the released test CSV.
@@ -137,8 +135,8 @@ Both submission line counts must match the number of rows in the released test C
 
 ```bash
 cd /Users/shivsaranshthakur/Projects/NaturalLanguageUnderstandingCourseWork
-head outputs/submission/Group_n_B.csv
-head outputs/submission/Group_n_C.csv
+head outputs/submission/Group_52_B.csv
+head outputs/submission/Group_52_C.csv
 ```
 
 The files should contain only `0` and `1` labels, one per line, with no header.
@@ -147,14 +145,14 @@ The files should contain only `0` and `1` labels, one per line, with no header.
 
 Before Canvas upload:
 
-1. rename the files with the real group number if needed
+1. keep the final filenames as `Group_52_B.csv` and `Group_52_C.csv`
 2. copy the final pair out of `outputs/submission/` if you want a clean upload directory
 3. include the required code and model-card deliverables in the final zip
 
 The minimum final prediction deliverables are:
 
-- `Group_n_B.csv`
-- `Group_n_C.csv`
+- `Group_52_B.csv`
+- `Group_52_C.csv`
 
 ## Failure Handling
 

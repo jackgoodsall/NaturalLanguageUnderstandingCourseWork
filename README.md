@@ -105,7 +105,7 @@ Evaluate:
 ```bash
 source .venv/bin/activate
 python -m src.solution_b.evaluate \
-  --checkpoints outputs/solution_b_run1/best_model.pt \
+  --checkpoints official_coursework/local_artifacts/B_REMOTE_FULL_001_best_model.pt \
   --data training_data/dev.csv \
   --device auto \
   --sweep
@@ -188,8 +188,8 @@ Test-day execution checklist:
 
 Final prediction filenames on submission day:
 
-- `Group_n_B.csv`
-- `Group_n_C.csv`
+- `Group_52_B.csv`
+- `Group_52_C.csv`
 
 ## Attribution and Reused Resources
 
@@ -231,11 +231,13 @@ Locked systems that these cloud links must correspond to:
 - `Solution B`: `experiments/runs/B_REMOTE_FULL_001_probe/result.json`
 - `Solution C`: `experiments/runs/C_REMOTE_A40_019_transfer_seed3/result.json`
 
-## Current Submission Gaps
+## Current Submission Status
 
-Remaining step on this branch:
+The repository is submission-ready on `main`.
 
-- final group review and merge to `main`
+Final operational step:
+
+- upload the final submission bundle to Canvas using `Group_52_B.csv` and `Group_52_C.csv`
 
 ## Use of Generative AI Tools
 
